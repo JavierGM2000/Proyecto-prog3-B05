@@ -25,4 +25,24 @@ public class ControladorEstado {
 		horasInicial=12;//Valor base de horas que hay en un día sin buffos
 		buffos = new Buff[30];
 	}
+	
+	// Geters de la clase
+	public double getProgreso() {
+		return progreso;
+	}
+	public double getDinero() {
+		return dinero;
+	}
+	public double getFelicidad() {
+		return felicidad;
+	}
+	public double getEstudios() {
+		return estudios;
+	}
+	public int getIdea() {
+		return dia;
+	}
+	public int getHorasActuales() {
+		return horasActuales;
+	}
 }
