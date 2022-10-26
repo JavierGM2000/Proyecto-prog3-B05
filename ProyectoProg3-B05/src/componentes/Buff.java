@@ -1,7 +1,7 @@
 package componentes;
 
 public class Buff {
-	private double buffProgeso;
+	private double buffProgreso;
 	private double nerfProgreso;
 	private double buffDinero;
 	private double nerfDinero;
@@ -13,7 +13,7 @@ public class Buff {
 
 	// Contructor sin parametros. Por defecto en un día todos los buffos estan a 0
 	public Buff() {
-		buffProgeso = 0.0;
+		buffProgreso = 0.0;
 		nerfProgreso = 0.0;
 		buffDinero = 0.0;
 		nerfDinero = 0.0;
@@ -26,7 +26,7 @@ public class Buff {
 	
 	//Constructor con parametros
 	public Buff(double buffProgreso, double nerfProgreso, double buffDinero, double nerfDinero, double buffFelicidad, double nerfFelicidad, double buffEstudio, double nerfEstudio, int modDias) {
-		this.buffProgeso = buffProgreso;
+		this.buffProgreso = buffProgreso;
 		this.nerfProgreso = nerfProgreso;
 		this.buffDinero = buffDinero;
 		this.nerfDinero = nerfDinero;
