@@ -1,7 +1,7 @@
 package componentes;
 
 public class Buff {
-	private double buffProgeso;
+	private double buffProgreso;
 	private double nerfProgreso;
 	private double buffDinero;
 	private double nerfDinero;
@@ -13,7 +13,7 @@ public class Buff {
 
 	// Contructor sin parametros. Por defecto en un día todos los buffos estan a 0
 	public Buff() {
-		buffProgeso = 0.0;
+		buffProgreso = 0.0;
 		nerfProgreso = 0.0;
 		buffDinero = 0.0;
 		nerfDinero = 0.0;
@@ -23,4 +23,177 @@ public class Buff {
 		nerfEstudio = 0.0;
 		modDias = 0;
 	}
+
+	/*
+	 * Función para cambiar el valor del buff si queremos penalizar lo que gana el
+	 * valor puede ser negativo
+	 */
+	public void addBuffProgreso(double cambio) {
+		// El valor del buff nunca puede ser negativo, si la operación daría menor que
+		// -1, lo ponemos a -1
+		if (buffProgreso + cambio < -1) {
+			buffProgreso = -1;
+			return;
+		}
+		buffProgreso += cambio;
+	}
+
+	/*
+	 * Función para cambiar el valor del nerf si queremos reducir lo que pierde el
+	 * valor puede ser negativo
+	 */
+	public void addNerfProgreso(double cambio) {
+		// El valor del nerf nunca puede ser negativo, si la operación daría menor que
+		// -1, lo ponemos a -1
+		if (nerfProgreso + cambio < -1) {
+			nerfProgreso = -1;
+			return;
+		}
+		nerfProgreso += cambio;
+	}
+
+	/*
+	 * Función para cambiar el valor del buff si queremos penalizar lo que gana el
+	 * valor puede ser negativo
+	 */
+	public void addbuffDinero(double cambio) {
+		// El valor del buff nunca puede ser negativo, si la operación daría menor que
+		// -1, lo ponemos a -1
+		if (buffDinero + cambio < -1) {
+			buffDinero = -1;
+			return;
+		}
+		buffDinero += cambio;
+	}
+
+	/*
+	 * Función para cambiar el valor del nerf si queremos reducir lo que pierde el
+	 * valor puede ser negativo
+	 */
+	public void addNerfDinero(double cambio) {
+		// El valor del nerf nunca puede ser negativo, si la operación daría menor que
+		// -1, lo ponemos a -1
+		if (nerfDinero + cambio < -1) {
+			nerfDinero = -1;
+			return;
+		}
+		nerfDinero += cambio;
+	}
+
+	/*
+	 * Función para cambiar el valor del buff si queremos penalizar lo que gana el
+	 * valor puede ser negativo
+	 */
+	public void addBuffFelicidad(double cambio) {
+		// El valor del buff nunca puede ser negativo, si la operación daría menor que
+		// -1, lo ponemos a -1
+		if (buffFelicidad + cambio < -1) {
+			buffFelicidad = -1;
+			return;
+		}
+		buffFelicidad += cambio;
+	}
+
+	/*
+	 * Función para cambiar el valor del nerf si queremos reducir lo que pierde el
+	 * valor puede ser negativo
+	 */
+	public void addNerfFelicidad(double cambio) {
+		// El valor del nerf nunca puede ser negativo, si la operación daría menor que
+		// -1, lo ponemos a -1
+		if (nerfFelicidad + cambio < -1) {
+			nerfFelicidad = -1;
+			return;
+		}
+		nerfFelicidad += cambio;
+	}
+
+	/*
+	 * Función para cambiar el valor del buff si queremos penalizar lo que gana el
+	 * valor puede ser negativo
+	 */
+	public void addBuffEstudio(double cambio) {
+		// El valor del buff nunca puede ser negativo, si la operación daría menor que
+		// -1, lo ponemos a -1
+		if (buffEstudio + cambio < -1) {
+			buffEstudio = -1;
+			return;
+		}
+		buffEstudio += cambio;
+	}
+
+	/*
+	 * Función para cambiar el valor del nerf si queremos reducir lo que pierde el
+	 * valor puede ser negativo
+	 */
+	public void addNerfEstudio(double cambio) {
+		// El valor del nerf nunca puede ser negativo, si la operación daría menor que
+		// -1, lo ponemos a -1
+		if (nerfEstudio + cambio < -1) {
+			nerfEstudio = -1;
+			return;
+		}
+		nerfEstudio += cambio;
+	}
+	//Funcion para modificar el modificador de días
+	public void modifDias(int cambio) {
+		modDias += cambio;
+	}
+
+	// Las funciones de añadir simétricos sirven bara queremos que un un buffo del
+	// 20%, reduzca los nerfs en 20% también el nerf
+	public void addBuffProgresoSimetrico(double cambio) {
+		addBuffProgreso(cambio);
+		addNerfProgreso(cambio * -1);
+	}
+	public void addBuffDineroimetrico(double cambio) {
+		addbuffDinero(cambio);
+		addNerfDinero(cambio * -1);
+	}
+	public void addBuffFelicidadimetrico(double cambio) {
+		addBuffFelicidad(cambio);
+		addNerfFelicidad(cambio * -1);
+	}
+	public void addBuffEstudioSimetrico(double cambio) {
+		addBuffEstudio(cambio);
+		addNerfEstudio(cambio * -1);
+	}
+
+	// getters
+	public double getBuffProgreso() {
+		return buffProgreso;
+	}
+
+	public double getNerfProgreso() {
+		return nerfProgreso;
+	}
+
+	public double getBuffDinero() {
+		return buffDinero;
+	}
+
+	public double getNerfDinero() {
+		return nerfDinero;
+	}
+
+	public double getBuffFelicidad() {
+		return buffFelicidad;
+	}
+
+	public double getNerfFelicidad() {
+		return nerfFelicidad;
+	}
+
+	public double getBuffEstudio() {
+		return buffEstudio;
+	}
+
+	public double getNerfEstudio() {
+		return nerfEstudio;
+	}
+
+	public int getModDias() {
+		return modDias;
+	}
+
 }
