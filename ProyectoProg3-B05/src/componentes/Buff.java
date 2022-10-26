@@ -23,4 +23,17 @@ public class Buff {
 		nerfEstudio = 0.0;
 		modDias = 0;
 	}
+	
+	//Constructor con parametros
+	public Buff(double buffProgreso, double nerfProgreso, double buffDinero, double nerfDinero, double buffFelicidad, double nerfFelicidad, double buffEstudio, double nerfEstudio, int modDias) {
+		this.buffProgeso = buffProgreso;
+		this.nerfProgreso = nerfProgreso;
+		this.buffDinero = buffDinero;
+		this.nerfDinero = nerfDinero;
+		this.buffFelicidad = buffFelicidad;
+		this.nerfFelicidad = nerfFelicidad;
+		this.buffEstudio = buffEstudio;
+		this.nerfEstudio = nerfEstudio;
+		this.modDias = modDias;
+	}
 }
