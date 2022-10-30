@@ -2,12 +2,17 @@ package ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -51,12 +56,23 @@ public class VentanaLogin extends JFrame{
 		pCentro.add(pCentroF2);
 		JLabel lContrasenya = new JLabel("Contraseña: ");
 		pCentroF2.add(lContrasenya);
-		JTextField tfContrasenya = new JTextField(20);
-		pCentroF2.add(tfContrasenya);
+		JPasswordField pfContrasenya = new JPasswordField(20);
+		pCentroF2.add(pfContrasenya);
 		
 		JButton bIniciarSesion = new JButton("Iniciar Sesion");
 		pSur.add(bIniciarSesion);
+		
 		JButton bCancelar = new JButton("Cancelar");
+		bCancelar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int n = JOptionPane.showOptionDialog(rootPane, "Seguro que quieres cancelar el incio de sesio?", "Cancelar inicio de sesion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+					if (n==0) {
+						dispose();
+					}
+			}
+		});
 		pSur.add(bCancelar);
 		
 		setVisible(true);
