@@ -8,11 +8,85 @@ import org.junit.Test;
 public class BuffTest {
 
 	Buff b;
+	Buff b1;
+	Buff b2;
 	@Before
 	public void setUp() throws Exception {
 		b = new Buff();
+		b1 = new Buff(0.5, 0.8, 0.7, 0.7, 0.3, 0.8, 0.2, 0.4, 3);
+		b2 = new Buff(-1.3, -1.8, -1.7, -2.7, -1.3, -1.8, -1.2, -1.4, 3);
 	}
-
+	//Teses del constructor con parametros
+	@Test
+	public void testConstructorBuffProgreso() {
+		assertEquals(0.5, b1.getBuffProgreso(), 0);
+	}
+	@Test
+	public void testConstructorBuffProgresoNegativo() {
+		assertEquals(-1.0, b2.getBuffProgreso(), 0);
+	}
+	@Test
+	public void testConstructorNerfProgreso() {
+		assertEquals(0.8, b1.getNerfProgreso(), 0);
+	}
+	@Test
+	public void testConstructorNerfProgresoNegativo() {
+		assertEquals(-1, b2.getNerfProgreso(), 0);
+	}
+	@Test
+	public void testConstructorBuffDinero() {
+		assertEquals(0.7, b1.getBuffDinero(), 0);
+	}
+	@Test
+	public void testConstructorBuffDineroNegativo() {
+		assertEquals(-1.0, b2.getBuffDinero(), 0);
+	}
+	@Test
+	public void testConstructorNerfDinero() {
+		assertEquals(0.7, b1.getBuffDinero(), 0);
+	}
+	@Test
+	public void testConstructorNerfDineroNegativo() {
+		assertEquals(-1.0, b2.getBuffDinero(), 0);
+	}
+	@Test
+	public void testConstructorBuffFelicidad() {
+		assertEquals(0.3, b1.getBuffFelicidad(), 0);
+	}
+	@Test
+	public void testConstructorBuffFelicidadNegativo() {
+		assertEquals(-1.0, b2.getBuffFelicidad(), 0);
+	}
+	@Test
+	public void testConstructorNerfFelicidad() {
+		assertEquals(0.8, b1.getNerfFelicidad(), 0);
+	}
+	@Test
+	public void testConstructorNerfFelicidadNegativo() {
+		assertEquals(-1.0, b2.getNerfFelicidad(), 0);
+	}
+	@Test
+	public void testConstructorBuffEstudio() {
+		assertEquals(0.2, b1.getBuffEstudio(), 0);
+	}
+	@Test
+	public void testConstructorBuffEstudioNegativo() {
+		assertEquals(-1.0, b2.getNerfEstudio(), 0);
+	}
+	@Test
+	public void testConstructorNerfEstudio() {
+		assertEquals(0.4, b1.getNerfEstudio(), 0);
+	}
+	@Test
+	public void testConstructorNerfEstudioNegativo() {
+		assertEquals(-1.0, b2.getNerfEstudio(), 0);
+	}
+	@Test
+	public void testConstructorModDias() {
+		assertEquals(3, b1.getModDias(), 0);
+	}
+	
+	//Teses de funciones
 	@Test
 	public void testAddBuffProgreso() {
 		b.addBuffProgreso(0.2);

@@ -29,7 +29,7 @@ public class Carta {
 	//Equals que compara dos cartas
 	//Compara el tipo de carta y los buffos 
 	public boolean equals(Carta otraCarta) {
-		if (otraCarta.getBufo()==bufo & otraCarta.getTipo()==tipo) {
+		if (otraCarta.getBufo()==bufo && otraCarta.getTipo()==tipo) {
 			return true;
 		}else {
 			return false;
