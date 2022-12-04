@@ -17,12 +17,16 @@ public class CartaTest {
 	@Before
 	public void setUp() {
 		b1 = new Buff(0.5, 0.8, 0.7, 0.7, 0.3, 0.8, 0.2, 0.4, 3);
-		carta = new Carta(TipoCarta.ESTUDIO, b, "descripcion");
-		carta2 = new Carta(TipoCarta.ESTUDIO, b, "descripcion");
-		carta3 = new Carta(TipoCarta.OCIO, b, "descripcion");
-		carta4 = new Carta(TipoCarta.ESTUDIO, b1, "descripcion");
+		carta = new Carta(1, TipoCarta.ESTUDIO, b, "descripcion");
+		carta2 = new Carta(1, TipoCarta.ESTUDIO, b, "descripcion");
+		carta3 = new Carta(1, TipoCarta.OCIO, b, "descripcion");
+		carta4 = new Carta(1, TipoCarta.ESTUDIO, b1, "descripcion");
 	}
 	
+	@Test
+	public void testgetId() {
+		assertEquals(carta.getId(), 1);
+	}
 	@Test
 	public void testgetTipo() {
 		assertEquals(carta.getTipo(), TipoCarta.ESTUDIO);
