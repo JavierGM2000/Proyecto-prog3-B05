@@ -44,7 +44,7 @@ public class GestorBBDDTest {
 	
 	@Test
 	public void crearBorrarusuario() {
-		int userid = G.crearUsuario("prueba2", "superprueba@pruebisima.com", "Las contraseñas seguras son las comicamente largas");
+		int userid = G.crearUsuario("prueba2", "superprueba@pruebisima.com", "Las contraseñas seguras son las comicamente largas".toCharArray());
 		assertEquals(true,G.existeCorreo("superprueba@pruebisima.com"));
 		assertEquals(userid,G.esUsuarioCorrecto("prueba2", "Las contraseñas seguras son las comicamente largas"));
 		assertEquals(true,G.borrarUsuario(userid));

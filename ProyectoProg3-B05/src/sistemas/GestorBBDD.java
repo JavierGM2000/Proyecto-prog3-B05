@@ -9,9 +9,9 @@ import componentes.Carta;
 public class GestorBBDD {
 	private Connection Conn;
 
-	//Logger
+	// Logger
 	private static Logger loggerBBDD = Logger.getLogger(Carta.class.getName());
-	
+
 	public GestorBBDD() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -99,14 +99,21 @@ public class GestorBBDD {
 		return 0;
 	}
 
-	// Devuelve el id del usuario insertado, devuelve 0 si hay algun error
-	public int crearUsuario(String Usuario, String Mail, String Contrasena) {
+	// Función para crear un usuario
+	// Devuelve 1 si el usuario se ha creado correctamente
+	// Devuelve 0 si el correo electronico está en uso
+	// Devuelve -1 para cualquier otro error al insertar
+	public int crearUsuario(String Usuario, String Mail, char[] Contrasena) {
 
+		if(existeCorreo(Mail)) {
+			return 0;
+		}
+		
 		try (PreparedStatement pstmt = Conn
 				.prepareStatement("INSERT INTO `usuarios`(`nombre`, `mail`, `contra`) VALUES (?,?,?)")) {
 			pstmt.setString(1, Usuario);
 			pstmt.setString(2, Mail);
-			String HashContra = BCrypt.withDefaults().hashToString(12, Contrasena.toCharArray());
+			String HashContra = BCrypt.withDefaults().hashToString(12, Contrasena);
 			pstmt.setString(3, HashContra);
 			pstmt.executeUpdate();
 			try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
@@ -118,34 +125,32 @@ public class GestorBBDD {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
+
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 			loggerBBDD.severe("Error al insertar un nuevo usuario en la Base de Datos");
 		}
-		
+
 		return 0;
 	}
-	
-	// Devuelve true si el usuario se ha borrado correctamente
-		public boolean borrarUsuario(int id) {
 
-			try (PreparedStatement pstmt = Conn
-					.prepareStatement("DELETE FROM `usuarios` WHERE `id`=?")) {
-				pstmt.setInt(1, id);
-				if(pstmt.executeUpdate()>0) {
-					loggerBBDD.fine("Usuario -" + id + "- borrado de la Base de Datos");
-					return true;
-				}
-				
-				
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-				loggerBBDD.severe("Error al borrar un usuario en la Base de Datos");
+	// Devuelve true si el usuario se ha borrado correctamente
+	public boolean borrarUsuario(int id) {
+
+		try (PreparedStatement pstmt = Conn.prepareStatement("DELETE FROM `usuarios` WHERE `id`=?")) {
+			pstmt.setInt(1, id);
+			if (pstmt.executeUpdate() > 0) {
+				loggerBBDD.fine("Usuario -" + id + "- borrado de la Base de Datos");
+				return true;
 			}
-			
-			return false;
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			loggerBBDD.severe("Error al borrar un usuario en la Base de Datos");
 		}
+
+		return false;
+	}
 
 	// Función que comprueba si un correo existe
 	// Devuelve:
@@ -172,14 +177,6 @@ public class GestorBBDD {
 			e.printStackTrace();
 		}
 		return true;
-	}
-
-	// Función para crear un usuario
-	// Devuelve 1 si el usuario se ha creado correctamente
-	// Devuelve 0 si el correo electronico está en uso
-	// Devuelve -1 para cualquier otro error al insertar
-	public int crearUsuario() {
-		return -1;
 	}
 
 	public void CerrarCon() {
