@@ -35,6 +35,20 @@ public class GestorBBDDTest {
 	public void testesUsuarioCorrectoMalUser() {
 		assertEquals(0, G.esUsuarioCorrecto("YEstoTambien", "OhNoSeMeHaOlvidado"));
 	}
+	
+	//La funcion que comprueba si un correo existe se encuentra un correo que existe
+	@Test
+	public void testexisteCorreoSi() {
+		assertEquals(true, G.existeCorreo("prueba@prueba.com"));
+	}
+	
+	@Test
+	public void crearBorrarusuario() {
+		int userid = G.crearUsuario("prueba2", "superprueba@pruebisima.com", "Las contraseñas seguras son las comicamente largas");
+		assertEquals(true,G.existeCorreo("superprueba@pruebisima.com"));
+		assertEquals(userid,G.esUsuarioCorrecto("prueba2", "Las contraseñas seguras son las comicamente largas"));
+		assertEquals(true,G.borrarUsuario(userid));
+	}
 
 	@After
 	public void cerrar() {

@@ -16,13 +16,18 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class VentanaLogin extends JFrame{
+import sistemas.GestorBBDD;
+import sistemas.GestorVentanas;
+
+public class VentanaLogin extends VentanaBase{
 	
-	public static void main(String[] args) {
-		VentanaLogin vl = new VentanaLogin();
-	}
-	
-	public VentanaLogin() {
+	GestorBBDD GBBDD;
+	GestorVentanas Padre;
+	JTextField tfUsuario;
+	JPasswordField pfContrasenya;
+	public VentanaLogin(GestorBBDD inGBBDD,GestorVentanas inPadre) {
+		GBBDD = inGBBDD;
+		Padre = inPadre;
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(400, 240);
 		setResizable(false);
@@ -48,7 +53,7 @@ public class VentanaLogin extends JFrame{
 		
 		JLabel lUsuario = new JLabel("Usuario: ", SwingConstants.CENTER);
 		pCentroF1.add(lUsuario);
-		JTextField tfUsuario = new JTextField(20);
+		tfUsuario = new JTextField(20);
 		pCentroF1.add(tfUsuario);
 		
 		JPanel pCentroF2 = new JPanel();
@@ -56,18 +61,28 @@ public class VentanaLogin extends JFrame{
 		pCentro.add(pCentroF2);
 		JLabel lContrasenya = new JLabel("Contraseña: ");
 		pCentroF2.add(lContrasenya);
-		JPasswordField pfContrasenya = new JPasswordField(20);
+		pfContrasenya = new JPasswordField(20);
 		pCentroF2.add(pfContrasenya);
 		
 		JButton bIniciarSesion = new JButton("Iniciar Sesion");
 		pSur.add(bIniciarSesion);
+		
+		JButton bCrearCuenta = new JButton("CrearCuenta");
+		bCrearCuenta.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Padre.cambiarVentana(1);
+			}
+		});
+		pSur.add(bCrearCuenta);
 		
 		JButton bCancelar = new JButton("Cancelar");
 		bCancelar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int n = JOptionPane.showOptionDialog(rootPane, "Seguro que quieres cancelar el incio de sesio?", "Cancelar inicio de sesion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				int n = JOptionPane.showOptionDialog(rootPane, "Seguro que quieres cancelar el incio de sesión?", "Cancelar inicio de sesion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 					if (n==0) {
 						dispose();
 					}
@@ -75,6 +90,12 @@ public class VentanaLogin extends JFrame{
 		});
 		pSur.add(bCancelar);
 		
-		setVisible(true);
+		setVisible(false);
+	}
+	
+	@Override
+	public void prepararInit() {
+		tfUsuario.setText(null);
+		pfContrasenya.setText(null);
 	}
 }
