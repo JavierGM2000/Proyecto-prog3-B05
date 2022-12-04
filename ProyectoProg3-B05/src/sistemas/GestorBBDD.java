@@ -33,7 +33,7 @@ public class GestorBBDD {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			this.Conn = GetConFromPath("data/bbdd/Basedatos");
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
 	}
 
@@ -45,7 +45,7 @@ public class GestorBBDD {
 			System.out.println("No se ha podido cargar");
 		}
 		try {
-			Conec = DriverManager.getConnection("JDBC:sqlite:"+path);
+			Conec = DriverManager.getConnection("JDBC:sqlite:" + path);
 			return Conec;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -88,6 +88,50 @@ public class GestorBBDD {
 
 		return 0;
 	}
+
+	// Devuelve el id del usuario insertado, devuelve 0 si hay algun error
+	public int crearUsuario(String Usuario, String Mail, String Contrasena) {
+
+		try (PreparedStatement pstmt = Conn
+				.prepareStatement("INSERT INTO `usuarios`(`nombre`, `mail`, `contra`) VALUES (?,?,?)")) {
+			pstmt.setString(1, Usuario);
+			pstmt.setString(2, Mail);
+			String HashContra = BCrypt.withDefaults().hashToString(12, Contrasena.toCharArray());
+			pstmt.setString(3, HashContra);
+			pstmt.executeUpdate();
+			try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					return (int) generatedKeys.getLong(1);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	// Devuelve true si el usuario se ha borrado correctamente
+		public boolean borrarUsuario(int id) {
+
+			try (PreparedStatement pstmt = Conn
+					.prepareStatement("DELETE FROM `usuarios` WHERE `id`=?")) {
+				pstmt.setInt(1, id);
+				if(pstmt.executeUpdate()>0) {
+					return true;
+				}
+				
+				
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+			return false;
+		}
 
 	// Función que comprueba si un correo existe
 	// Devuelve:
