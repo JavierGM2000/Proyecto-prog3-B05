@@ -1,17 +1,23 @@
 package sistemas;
 
 import java.sql.*;
+import java.util.logging.Logger;
 
 import at.favre.lib.crypto.bcrypt.*;
+import componentes.Carta;
 
 public class GestorBBDD {
 	private Connection Conn;
 
+	//Logger
+	private static Logger loggerBBDD = Logger.getLogger(Carta.class.getName());
+	
 	public GestorBBDD() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
+			loggerBBDD.fine("Driver de mysql cargado correctamente");
 		} catch (ClassNotFoundException e) {
-			System.out.println("No se ha podido cargar");
+			loggerBBDD.severe("No se a podido cargar el driver de mysql");
 		}
 		try {
 			////////////////////////////////////////////
@@ -30,9 +36,11 @@ public class GestorBBDD {
 			////////////////////////////////////////////
 			Conn = DriverManager.getConnection("jdbc:mysql://qahf589.emaginarte.info/qahf589?useSSL=false", "qahf589",
 					"Deustoim22");// Contraseña entre las comillas
+			loggerBBDD.fine("Conexion con la Base de Datos exitosa");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			this.Conn = GetConFromPath("data/bbdd/Basedatos");
+			loggerBBDD.severe("No se a podido establecer conexion con la Base de Datos");
 			// e.printStackTrace();
 		}
 	}
@@ -42,14 +50,14 @@ public class GestorBBDD {
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch (ClassNotFoundException e) {
-			System.out.println("No se ha podido cargar");
+			loggerBBDD.severe("No se a podido cargar sqlite");
 		}
 		try {
 			Conec = DriverManager.getConnection("JDBC:sqlite:" + path);
 			return Conec;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			loggerBBDD.severe("No se a podido conectar a sqlite");
 		}
 		return null;
 	}
@@ -75,6 +83,7 @@ public class GestorBBDD {
 				BCrypt.Result result = BCrypt.verifyer().verify(Contrasena.toCharArray(), PassHash);
 				if (result.verified == true) {
 					// si coinciden el usuario se ha logeado y devolvemos el id
+					loggerBBDD.fine("Usuario y  contraseñas correctos");
 					return id;
 				} else {
 					return 0;
@@ -83,6 +92,7 @@ public class GestorBBDD {
 				return 0;
 			}
 		} catch (SQLException e) {
+			loggerBBDD.severe("Error al obtener las ids de los usuarios de la Base de Datos");
 			e.printStackTrace();
 		}
 
@@ -101,6 +111,7 @@ public class GestorBBDD {
 			pstmt.executeUpdate();
 			try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
+					loggerBBDD.fine("Usuario -" + generatedKeys.getLong(1) + "- creado en la Base de Datos");
 					return (int) generatedKeys.getLong(1);
 				}
 
@@ -110,6 +121,7 @@ public class GestorBBDD {
 			
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			loggerBBDD.severe("Error al insertar un nuevo usuario en la Base de Datos");
 		}
 		
 		return 0;
@@ -122,12 +134,14 @@ public class GestorBBDD {
 					.prepareStatement("DELETE FROM `usuarios` WHERE `id`=?")) {
 				pstmt.setInt(1, id);
 				if(pstmt.executeUpdate()>0) {
+					loggerBBDD.fine("Usuario -" + id + "- borrado de la Base de Datos");
 					return true;
 				}
 				
 				
 			} catch (SQLException e1) {
 				e1.printStackTrace();
+				loggerBBDD.severe("Error al borrar un usuario en la Base de Datos");
 			}
 			
 			return false;
@@ -147,11 +161,14 @@ public class GestorBBDD {
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
 			if (rs.getInt(1) > 0) {
+				loggerBBDD.fine("Existe el correo");
 				return true;
 			} else {
+				loggerBBDD.fine("No existe el correo");
 				return false;
 			}
 		} catch (SQLException e) {
+			loggerBBDD.severe("Error al obtener el numero de mails de la Base de Datos");
 			e.printStackTrace();
 		}
 		return true;
@@ -168,8 +185,9 @@ public class GestorBBDD {
 	public void CerrarCon() {
 		try {
 			Conn.close();
+			loggerBBDD.fine("Base de Datos cerrada");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			loggerBBDD.severe("Error al cerrar la base de datos");
 			e.printStackTrace();
 		}
 	}
