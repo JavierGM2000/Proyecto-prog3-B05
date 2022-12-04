@@ -24,6 +24,7 @@ public class GestorVentanas {
 	
 	public void cambiarVentana(int idVentana) {
 		ventanas[actual].setVisible(false);
+		actual=idVentana;
 		ventanas[idVentana].prepararInit();
 		ventanas[idVentana].setVisible(true);
 	}
