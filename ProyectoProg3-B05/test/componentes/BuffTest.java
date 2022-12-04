@@ -119,17 +119,17 @@ public class BuffTest {
 	}
 	@Test
 	public void testAddbuffDinero() {
-		b.addbuffDinero(0.2);
+		b.addBuffDinero(0.2);
 		assertEquals(0.2,b.getBuffDinero(), 0);
 	}
 	@Test
 	public void testAddbuffDineroNegativo() {
-		b.addbuffDinero(-0.2);
+		b.addBuffDinero(-0.2);
 		assertEquals(-0.2,b.getBuffDinero(),0);
 	}
 	@Test
 	public void testAddbuffDineroNegativoMax() {
-		b.addbuffDinero(-2);
+		b.addBuffDinero(-2);
 		assertEquals(-1,b.getBuffDinero(),0);
 	}
 	@Test

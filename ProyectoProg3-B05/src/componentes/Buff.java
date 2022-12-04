@@ -1,5 +1,7 @@
 package componentes;
 
+import java.util.logging.Logger;
+
 public class Buff {
 	private double buffProgreso;
 	private double nerfProgreso;
@@ -11,6 +13,9 @@ public class Buff {
 	private double nerfEstudio;
 	private int modDias;
 
+	//Logger
+	private static Logger loggerBuff = Logger.getLogger(Carta.class.getName());
+	
 	// Contructor sin parametros. Por defecto en un día todos los buffos estan a 0
 	public Buff() {
 		buffProgreso = 0.0;
@@ -22,6 +27,7 @@ public class Buff {
 		buffEstudio = 0.0;
 		nerfEstudio = 0.0;
 		modDias = 0;
+		loggerBuff.info("Creado Buff sin parametros");
 	}
 	//Constructor con parametros
 	public Buff(double buffProgreso, double nerfProgreso, double buffDinero, double nerfDinero, double buffFelicidad, double nerfFelicidad, double buffEstudio, double nerfEstudio, int modDias) {
@@ -74,6 +80,7 @@ public class Buff {
 		}
 
 		this.modDias = modDias;
+		loggerBuff.info("Creado Buff con parametros");
 	}
 
 	/*
@@ -81,6 +88,7 @@ public class Buff {
 	 * valor puede ser negativo
 	 */
 	public void addBuffProgreso(double cambio) {
+		loggerBuff.info("Añadido BuffProgreso: " + cambio);
 		// El valor del buff nunca puede ser negativo, si la operación daría menor que
 		// -1, lo ponemos a -1
 		if (buffProgreso + cambio < -1) {
@@ -95,6 +103,7 @@ public class Buff {
 	 * valor puede ser negativo
 	 */
 	public void addNerfProgreso(double cambio) {
+		loggerBuff.info("Añadido BuffProgreso: " + cambio);
 		// El valor del nerf nunca puede ser negativo, si la operación daría menor que
 		// -1, lo ponemos a -1
 		if (nerfProgreso + cambio < -1) {
@@ -108,7 +117,8 @@ public class Buff {
 	 * Función para cambiar el valor del buff si queremos penalizar lo que gana el
 	 * valor puede ser negativo
 	 */
-	public void addbuffDinero(double cambio) {
+	public void addBuffDinero(double cambio) {
+		loggerBuff.info("Añadido BuffDinero: " + cambio);
 		// El valor del buff nunca puede ser negativo, si la operación daría menor que
 		// -1, lo ponemos a -1
 		if (buffDinero + cambio < -1) {
@@ -123,6 +133,7 @@ public class Buff {
 	 * valor puede ser negativo
 	 */
 	public void addNerfDinero(double cambio) {
+		loggerBuff.info("Añadido NerfDinero: " + cambio);
 		// El valor del nerf nunca puede ser negativo, si la operación daría menor que
 		// -1, lo ponemos a -1
 		if (nerfDinero + cambio < -1) {
@@ -137,6 +148,7 @@ public class Buff {
 	 * valor puede ser negativo
 	 */
 	public void addBuffFelicidad(double cambio) {
+		loggerBuff.info("Añadido BuffFelicidad: " + cambio);
 		// El valor del buff nunca puede ser negativo, si la operación daría menor que
 		// -1, lo ponemos a -1
 		if (buffFelicidad + cambio < -1) {
@@ -151,6 +163,7 @@ public class Buff {
 	 * valor puede ser negativo
 	 */
 	public void addNerfFelicidad(double cambio) {
+		loggerBuff.info("Añadido NerfFelicidad: " + cambio);
 		// El valor del nerf nunca puede ser negativo, si la operación daría menor que
 		// -1, lo ponemos a -1
 		if (nerfFelicidad + cambio < -1) {
@@ -165,6 +178,7 @@ public class Buff {
 	 * valor puede ser negativo
 	 */
 	public void addBuffEstudio(double cambio) {
+		loggerBuff.info("Añadido BuffEstudio: " + cambio);
 		// El valor del buff nunca puede ser negativo, si la operación daría menor que
 		// -1, lo ponemos a -1
 		if (buffEstudio + cambio < -1) {
@@ -179,6 +193,7 @@ public class Buff {
 	 * valor puede ser negativo
 	 */
 	public void addNerfEstudio(double cambio) {
+		loggerBuff.info("Añadido NerfEstudio: " + cambio);
 		// El valor del nerf nunca puede ser negativo, si la operación daría menor que
 		// -1, lo ponemos a -1
 		if (nerfEstudio + cambio < -1) {
@@ -189,62 +204,76 @@ public class Buff {
 	}
 	//Funcion para modificar el modificador de días
 	public void modifDias(int cambio) {
+		loggerBuff.info("Dias modificados: " + cambio);
 		modDias += cambio;
 	}
 
-	// Las funciones de añadir simétricos sirven bara queremos que un un buffo del
+	// Las funciones de añadir simétricos sirven para cuando queremos que un un buffo del
 	// 20%, reduzca los nerfs en 20% también el nerf
 	public void addBuffProgresoSimetrico(double cambio) {
+		loggerBuff.info("Añadido BuffProgresoSimetrico: " + cambio);
 		addBuffProgreso(cambio);
 		addNerfProgreso(cambio * -1);
 	}
 	public void addBuffDineroimetrico(double cambio) {
-		addbuffDinero(cambio);
+		loggerBuff.info("Añadido BuffProgresoSimetrico: " + cambio);
+		addBuffDinero(cambio);
 		addNerfDinero(cambio * -1);
 	}
 	public void addBuffFelicidadimetrico(double cambio) {
+		loggerBuff.info("Añadido BuffDineroimetrico: " + cambio);
 		addBuffFelicidad(cambio);
 		addNerfFelicidad(cambio * -1);
 	}
 	public void addBuffEstudioSimetrico(double cambio) {
+		loggerBuff.info("Añadido BuffEstudioSimetrico: " + cambio);
 		addBuffEstudio(cambio);
 		addNerfEstudio(cambio * -1);
 	}
 
 	// getters
 	public double getBuffProgreso() {
+		loggerBuff.info("Devuelto BuffProgreso: " + buffProgreso);
 		return buffProgreso;
 	}
 
 	public double getNerfProgreso() {
+		loggerBuff.info("Devuelto NerfProgreso: " + nerfProgreso);
 		return nerfProgreso;
 	}
 
 	public double getBuffDinero() {
+		loggerBuff.info("Devuelto BuffDinero: " + buffDinero);
 		return buffDinero;
 	}
 
 	public double getNerfDinero() {
+		loggerBuff.info("Devuelto NerfDinero: " + nerfDinero);
 		return nerfDinero;
 	}
 
 	public double getBuffFelicidad() {
+		loggerBuff.info("Devuelto BuffFelicidad: " + nerfFelicidad);
 		return buffFelicidad;
 	}
 
 	public double getNerfFelicidad() {
+		loggerBuff.info("Devuelto NerfFelicidad: " + nerfFelicidad);
 		return nerfFelicidad;
 	}
 
 	public double getBuffEstudio() {
+		loggerBuff.info("Devuelto BuffEstudio: " + buffEstudio);
 		return buffEstudio;
 	}
 
 	public double getNerfEstudio() {
+		loggerBuff.info("Devuelto NerfEstudio: " + nerfEstudio);
 		return nerfEstudio;
 	}
 
 	public int getModDias() {
+		loggerBuff.info("Devuelto ModDias: " + modDias);
 		return modDias;
 	}
 }
