@@ -29,14 +29,30 @@ public class GestorBBDD {
 			// del repositorio
 			////////////////////////////////////////////
 			Conn = DriverManager.getConnection("jdbc:mysql://qahf589.emaginarte.info/qahf589?useSSL=false", "qahf589",
-					"DeustoSim22");// Contraseña entre las comillas
+					"Deustoim22");// Contraseña entre las comillas
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			this.Conn = GetConFromPath("data/bbdd/Basedatos");
+			//e.printStackTrace();
+		}
+	}
+
+	public Connection GetConFromPath(String path) {
+		Connection Conec;
+		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e) {
+			System.out.println("No se ha podido cargar");
+		}
+		try {
+			Conec = DriverManager.getConnection("JDBC:sqlite:"+path);
+			return Conec;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 	}
-	
-	
 
 	/*
 	 * Si el el usuario y contraseña es correcta, devuelve la ID del usuario
@@ -72,18 +88,21 @@ public class GestorBBDD {
 
 		return 0;
 	}
-	//Función que comprueba si un correo existe
+
+	// Función que comprueba si un correo existe
 	// Devuelve:
-	// true: Cuando el correo ya está en la base de datos o no se ha podido preparar el prepared statement
-	//		 La razon por la que devolvemos true ne caso de error es asegurarnos que al crear un usuario
-	//		 No pueda suceder que creamos un usuario con el mismo correo dos veces
-	// false: Cuando el correo no existe en la base de datos 
+	// true: Cuando el correo ya está en la base de datos o no se ha podido preparar
+	// el prepared statement
+	// La razon por la que devolvemos true ne caso de error es asegurarnos que al
+	// crear un usuario
+	// No pueda suceder que creamos un usuario con el mismo correo dos veces
+	// false: Cuando el correo no existe en la base de datos
 	public boolean existeCorreo(String mail) {
 		try (PreparedStatement pstmt = Conn.prepareStatement("SELECT COUNT(*) FROM `usuarios` WHERE `mail`=?")) {
 			pstmt.setString(1, mail);
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
-			if(rs.getInt(1)>0) {
+			if (rs.getInt(1) > 0) {
 				return true;
 			} else {
 				return false;
@@ -93,12 +112,11 @@ public class GestorBBDD {
 		}
 		return true;
 	}
-	
-	
-	//Función para crear un usuario
-	//Devuelve 1 si el usuario se ha creado correctamente
-	//Devuelve 0 si el correo electronico está en uso
-	//Devuelve -1 para cualquier otro error al insertar
+
+	// Función para crear un usuario
+	// Devuelve 1 si el usuario se ha creado correctamente
+	// Devuelve 0 si el correo electronico está en uso
+	// Devuelve -1 para cualquier otro error al insertar
 	public int crearUsuario() {
 		return -1;
 	}
