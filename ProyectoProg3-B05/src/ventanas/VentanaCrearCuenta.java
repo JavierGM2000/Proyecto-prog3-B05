@@ -32,7 +32,7 @@ public class VentanaCrearCuenta extends VentanaBase {
 		setSize(400, 240);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setTitle("Login");
+		setTitle("Crear cuenta");
 		setLayout(new BorderLayout());
 
 		JPanel pCentro = new JPanel();
@@ -60,9 +60,9 @@ public class VentanaCrearCuenta extends VentanaBase {
 		pCentroF3.setLayout(new FlowLayout());
 		pCentro.add(pCentroF3);
 		JLabel lMail = new JLabel("Mail: ", SwingConstants.CENTER);
-		pCentroF1.add(lMail);
+		pCentroF3.add(lMail);
 		tfMail = new JTextField(20);
-		pCentroF1.add(tfMail);
+		pCentroF3.add(tfMail);
 
 		JPanel pCentroF2 = new JPanel();
 		pCentroF2.setLayout(new FlowLayout());
