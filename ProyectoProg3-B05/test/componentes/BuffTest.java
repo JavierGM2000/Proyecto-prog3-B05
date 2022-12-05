@@ -10,11 +10,13 @@ public class BuffTest {
 	Buff b;
 	Buff b1;
 	Buff b2;
+	Buff b3;
 	@Before
 	public void setUp() throws Exception {
 		b = new Buff();
 		b1 = new Buff(0.5, 0.8, 0.7, 0.7, 0.3, 0.8, 0.2, 0.4, 3);
 		b2 = new Buff(-1.3, -1.8, -1.7, -2.7, -1.3, -1.8, -1.2, -1.4, 3);
+		b3 = new Buff(0.0, 0.0, 0.7, 0.7, 0.3, 0.8, 0.2, 0.4, 3);
 	}
 	//Teses del constructor con parametros
 	@Test
@@ -294,5 +296,29 @@ public class BuffTest {
 		b.modifDias(0);
 		assertEquals(0,b.getModDias());
 	}
-	
+	@Test
+	public void testIsNotNull() {
+		assertTrue(b.isNotNull(1.5));
+		assertTrue(b.isNotNull(0.4));
+		assertFalse(b.isNotNull(0.0));
+	}
+	@Test
+	public void testToString() {
+		assertEquals("Bufo dinero: 0.7\n"
+				+ "Nerf dinero: 0.7\n"
+				+ "Bufo estudio: 0.2\n"
+				+ "Nerf estudio: 0.4\n"
+				+ "Bufo felicidad: 0.3\n"
+				+ "Nerf felicidad: 0.8\n"
+				+ "Bufo progreso: 0.5\n"
+				+ "Nerf progreso: 0.8\n"
+				+ "Modificacion de dias: 3\n", b1.toString());
+		assertEquals("Bufo dinero: 0.7\n"
+				+ "Nerf dinero: 0.7\n"
+				+ "Bufo estudio: 0.2\n"
+				+ "Nerf estudio: 0.4\n"
+				+ "Bufo felicidad: 0.3\n"
+				+ "Nerf felicidad: 0.8\n"
+				+ "Modificacion de dias: 3\n", b3.toString());
+	}
 }
