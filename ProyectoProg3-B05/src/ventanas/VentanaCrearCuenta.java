@@ -114,10 +114,4 @@ public class VentanaCrearCuenta extends VentanaBase {
 		tfUsuario.setText(null);
 		pfContrasenya.setText(null);
 	}
-	
-	public static void main(String[] args) {
-		GestorBBDD gb = new GestorBBDD();
-		GestorVentanas gv = new GestorVentanas(gb);
-		new VentanaCrearCuenta(gb,gv);
-	}
 }
