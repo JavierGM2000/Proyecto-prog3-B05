@@ -106,7 +106,7 @@ public class VentanaCrearCuenta extends VentanaBase {
 		});
 		pSur.add(bCancelar);
 
-		setVisible(true);
+		setVisible(false);
 	}
 
 	@Override
