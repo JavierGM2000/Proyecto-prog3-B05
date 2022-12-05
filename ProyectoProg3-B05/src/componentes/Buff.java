@@ -276,4 +276,44 @@ public class Buff {
 		loggerBuff.info("Devuelto ModDias: " + modDias);
 		return modDias;
 	}
+	
+	public boolean isNotNull(double bufo) {
+		if (bufo==0.0) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
+	public String toString() {
+		String resultado = "";
+		if(this.isNotNull(buffDinero)) {
+			resultado = resultado + "Bufo dinero: " + getBuffDinero() + "\n";
+		}
+		if(this.isNotNull(nerfDinero)) {
+			resultado = resultado + "Nerf dinero: " +getNerfDinero() + "\n";
+		}
+		if(this.isNotNull(buffEstudio)) {
+			resultado = resultado + "Bufo estudio: " +getBuffEstudio() + "\n";
+		}
+		if(this.isNotNull(nerfEstudio)) {
+			resultado = resultado + "Nerf estudio: " +getNerfEstudio() + "\n";
+		}
+		if(this.isNotNull(buffFelicidad)) {
+			resultado = resultado + "Bufo felicidad: " +getBuffFelicidad() + "\n";
+		}
+		if(this.isNotNull(nerfFelicidad)) {
+			resultado = resultado + "Nerf felicidad: " +getNerfFelicidad() + "\n";
+		}
+		if(this.isNotNull(buffProgreso)) {
+			resultado = resultado + "Bufo progreso: " +getBuffProgreso() + "\n";
+		}
+		if(this.isNotNull(nerfProgreso)) {
+			resultado = resultado + "Nerf progreso: " +getNerfProgreso() + "\n";
+		}
+		if(this.isNotNull(modDias)) {
+			resultado = resultado + "Modificacion de dias: " +getModDias() + "\n";
+		}
+		return resultado;
+	}
 }
