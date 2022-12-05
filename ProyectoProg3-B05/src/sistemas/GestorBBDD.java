@@ -38,9 +38,8 @@ public class GestorBBDD {
 					"Deustoim22");// Contraseña entre las comillas
 			loggerBBDD.fine("Conexion con la Base de Datos exitosa");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			loggerBBDD.info("Conexion online fallida, intentando conexion local");
 			this.Conn = GetConFromPath("data/bbdd/Basedatos");
-			loggerBBDD.severe("No se a podido establecer conexion con la Base de Datos");
 			// e.printStackTrace();
 		}
 	}
@@ -66,7 +65,7 @@ public class GestorBBDD {
 	 * Si el el usuario y contraseña es correcta, devuelve la ID del usuario
 	 * logeado, si la contraseña no es correcta o el usuario no existe, devuelve 0
 	 */
-	public int esUsuarioCorrecto(String Usuario, String Contrasena) {
+	public int esUsuarioCorrecto(String Usuario, char[] Contrasena) {
 		// PreparedStatement pstmt;
 		try (PreparedStatement pstmt = Conn.prepareStatement("SELECT id,`contra` FROM `usuarios` WHERE `nombre`=?")) {
 			pstmt.setString(1, Usuario);
@@ -80,7 +79,7 @@ public class GestorBBDD {
 				// Comparamos la contraseña
 				// Codigo de ejemplo de la documentacion de la libreria BCRYPT:
 				// https://github.com/patrickfav/bcrypt
-				BCrypt.Result result = BCrypt.verifyer().verify(Contrasena.toCharArray(), PassHash);
+				BCrypt.Result result = BCrypt.verifyer().verify(Contrasena, PassHash);
 				if (result.verified == true) {
 					// si coinciden el usuario se ha logeado y devolvemos el id
 					loggerBBDD.fine("Usuario y  contraseñas correctos");

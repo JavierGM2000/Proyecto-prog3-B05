@@ -65,6 +65,18 @@ public class VentanaLogin extends VentanaBase{
 		pCentroF2.add(pfContrasenya);
 		
 		JButton bIniciarSesion = new JButton("Iniciar Sesion");
+		bIniciarSesion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int usuario = GBBDD.esUsuarioCorrecto(tfUsuario.getText(), pfContrasenya.getPassword());
+				if(usuario > 0) {
+					JOptionPane.showMessageDialog(rootPane, "Sesion iniciada correctamente","Correcto", JOptionPane.INFORMATION_MESSAGE);
+				}else {
+					JOptionPane.showMessageDialog(rootPane, "No se ha podido iniciar sesion","Ha sucedido un error",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		pSur.add(bIniciarSesion);
 		
 		JButton bCrearCuenta = new JButton("CrearCuenta");
