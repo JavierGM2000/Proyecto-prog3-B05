@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JToolBar.Separator;
 
+import componentes.Estado;
 import sistemas.GestorBBDD;
 import sistemas.GestorVentanas;
 
@@ -21,9 +22,12 @@ import java.util.logging.Logger;
 public class VentanaJuegoPrincipal extends VentanaBase{
 	
 	
-//	GestorBBDD GBBDD;
-//	GestorVentanas Padre;
+	GestorBBDD GBBDD;
+	GestorVentanas Padre;
+	Estado estadoJuego;
+	
 	public VentanaJuegoPrincipal() {
+
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(960, 540);
@@ -51,14 +55,17 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		pTop.add(pBarras, BorderLayout.CENTER);
 		
 		JProgressBar pbSalud = new JProgressBar(0, 100);
+		pbSalud.setValue(estadoJuego.getSalud());
 		pbSalud.setBackground(Color.RED);
 		pBarras.add(pbSalud);
 		
 		JProgressBar pbDinero = new JProgressBar(0, 500);
+		pbDinero.setValue(estadoJuego.getDinero());
 		pbDinero.setBackground(Color.GREEN);
 		pBarras.add(pbDinero);
 		
 		JProgressBar pbProyecto = new JProgressBar(0, 100);
+		pbProyecto.setValue(estadoJuego.getProgreso());
 		pbProyecto.setBackground(Color.BLUE);
 		pBarras.add(pbProyecto);
 		
@@ -114,17 +121,10 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		add(pBottom, BorderLayout.SOUTH);
 		
 		
-		JLabel lDiasPasados = new JLabel("Día: 0/0");
+		JLabel lDiasPasados = new JLabel("Día: " + estadoJuego.getDia() + "/30");
 		pBottom.add(lDiasPasados);
 		
 		setVisible(true);
 		
 	}
-	
-	// ---- main provisional para pruebas ----
-	
-	public static void main(String[] args) {
-		new VentanaJuegoPrincipal();
-	}
-	
 }
