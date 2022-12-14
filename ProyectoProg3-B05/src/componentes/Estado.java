@@ -19,7 +19,20 @@ public class Estado {
 //	public Estado( Tenemos que encontrar el parametro de entrada ){
 //
 //	}
+	
+	
+	public void verificarDia() {
+		if(dia >= 30) {
+			if(getProgreso() >= 50 && getSalud() > 0);
+				finDelJuego();
+		}
+	}
 
+	public void finDelJuego() {
+		
+		// TODO
+		
+	}
 
 	public int getDia() {
 		return dia;
