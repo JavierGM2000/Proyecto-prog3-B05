@@ -57,16 +57,22 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		JProgressBar pbSalud = new JProgressBar(0, 100);
 		pbSalud.setValue(estadoJuego.getSalud());
 		pbSalud.setBackground(Color.RED);
+		pbSalud.setString(estadoJuego.getSalud() + "/" + pbSalud.getMaximum());
+		pbSalud.getString();
 		pBarras.add(pbSalud);
 		
 		JProgressBar pbDinero = new JProgressBar(0, 500);
 		pbDinero.setValue(estadoJuego.getDinero());
 		pbDinero.setBackground(Color.GREEN);
+		pbDinero.setString(estadoJuego.getDinero() + "/" + pbDinero.getMaximum());
+		pbDinero.getString();
 		pBarras.add(pbDinero);
 		
 		JProgressBar pbProyecto = new JProgressBar(0, 100);
 		pbProyecto.setValue(estadoJuego.getProgreso());
 		pbProyecto.setBackground(Color.BLUE);
+		pbProyecto.setString(estadoJuego.getProgreso() + "/" + pbProyecto.getMaximum());
+		pbProyecto.getString();
 		pBarras.add(pbProyecto);
 		
 		// -- Parte del medio de la Ventana (La exposicion de las cartas que pueden tocar + rerroll + siguiente dia)
