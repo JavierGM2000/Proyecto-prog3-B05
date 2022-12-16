@@ -72,6 +72,8 @@ public class VentanaLogin extends VentanaBase{
 				int usuario = GBBDD.esUsuarioCorrecto(tfUsuario.getText(), pfContrasenya.getPassword());
 				if(usuario > 0) {
 					JOptionPane.showMessageDialog(rootPane, "Sesion iniciada correctamente","Correcto", JOptionPane.INFORMATION_MESSAGE);
+					Padre.setUsu(usuario, tfUsuario.getText());
+					Padre.cambiarVentana(2);
 				}else {
 					JOptionPane.showMessageDialog(rootPane, "No se ha podido iniciar sesion","Ha sucedido un error",JOptionPane.ERROR_MESSAGE);
 				}
@@ -91,7 +93,6 @@ public class VentanaLogin extends VentanaBase{
 		
 		JButton bCancelar = new JButton("Cancelar");
 		bCancelar.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int n = JOptionPane.showOptionDialog(rootPane, "Seguro que quieres cancelar el incio de sesión?", "Cancelar inicio de sesion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
