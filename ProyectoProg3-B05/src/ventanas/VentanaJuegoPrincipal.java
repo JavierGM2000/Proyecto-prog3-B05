@@ -24,7 +24,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 	
 	GestorBBDD GBBDD;
 	GestorVentanas Padre;
-	Estado estadoJuego;
+	Estado estadoJuego = new Estado();
 	
 	public VentanaJuegoPrincipal() {
 
@@ -56,23 +56,32 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		
 		JProgressBar pbSalud = new JProgressBar(0, 100);
 		pbSalud.setValue(estadoJuego.getSalud());
-		pbSalud.setBackground(Color.RED);
-		pbSalud.setString(estadoJuego.getSalud() + "/" + pbSalud.getMaximum());
+		pbSalud.setBackground(Color.GRAY);
+		pbSalud.setForeground(Color.RED);
+		pbSalud.setString(estadoJuego.getSalud() + "/" + pbSalud.getMaximum() + "(PS)");
+		pbSalud.setStringPainted(true);
 		pbSalud.getString();
+		pbSalud.repaint();
 		pBarras.add(pbSalud);
 		
 		JProgressBar pbDinero = new JProgressBar(0, 500);
 		pbDinero.setValue(estadoJuego.getDinero());
-		pbDinero.setBackground(Color.GREEN);
-		pbDinero.setString(estadoJuego.getDinero() + "/" + pbDinero.getMaximum());
+		pbDinero.setBackground(Color.GRAY);
+		pbDinero.setForeground(Color.GREEN);
+		pbDinero.setString(estadoJuego.getDinero() + "/" + pbDinero.getMaximum() + "(€)");
+		pbDinero.setStringPainted(true);
 		pbDinero.getString();
+		pbDinero.repaint();
 		pBarras.add(pbDinero);
 		
 		JProgressBar pbProyecto = new JProgressBar(0, 100);
 		pbProyecto.setValue(estadoJuego.getProgreso());
-		pbProyecto.setBackground(Color.BLUE);
-		pbProyecto.setString(estadoJuego.getProgreso() + "/" + pbProyecto.getMaximum());
+		pbProyecto.setBackground(Color.GRAY);
+		pbProyecto.setForeground(Color.BLUE);
+		pbProyecto.setString(estadoJuego.getProgreso() + " % ");
+		pbProyecto.setStringPainted(true);
 		pbProyecto.getString();
+		pbProyecto.repaint();
 		pBarras.add(pbProyecto);
 		
 		// -- Parte del medio de la Ventana (La exposicion de las cartas que pueden tocar + rerroll + siguiente dia)
@@ -131,6 +140,9 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		pBottom.add(lDiasPasados);
 		
 		setVisible(true);
-		
+	}
+	
+	public static void main(String[] args) {
+		new VentanaJuegoPrincipal();
 	}
 }
