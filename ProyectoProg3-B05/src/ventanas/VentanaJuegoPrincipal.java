@@ -2,7 +2,9 @@ package ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -13,7 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JToolBar.Separator;
 
+import componentes.Buff;
+import componentes.Carta;
 import componentes.Estado;
+import componentes.TipoCarta;
 import sistemas.GestorBBDD;
 import sistemas.GestorVentanas;
 
@@ -25,6 +30,9 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 	GestorBBDD GBBDD;
 	GestorVentanas Padre;
 	Estado estadoJuego = new Estado();
+	Carta cNula1 = new Carta(00,TipoCarta.OCIO, new Buff(),"carta nula");
+	Carta cNula2 = new Carta(00,TipoCarta.ESTUDIO, new Buff(),"carta nula");
+	Carta cNula3 = new Carta(00,TipoCarta.TRABAJO, new Buff(),"carta nula");
 	
 	public VentanaJuegoPrincipal() {
 
@@ -89,12 +97,13 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		JPanel pPantallaBaraja = new JPanel(new BorderLayout());
 		add(pPantallaBaraja, BorderLayout.CENTER);
 		
-		JPanel pBaraja = new JPanel(new FlowLayout());
+		JPanel pBaraja = new JPanel(new GridLayout(1,3));
 		pPantallaBaraja.add(pBaraja, BorderLayout.CENTER);
 		
-		JPanel carta1 = new JPanel();
-		JPanel carta2 = new JPanel();
-		JPanel carta3 = new JPanel();
+		PanelCarta carta1 = new PanelCarta(cNula1);
+		PanelCarta carta2 = new PanelCarta(cNula2);
+		PanelCarta carta3 = new PanelCarta(cNula3);
+		
 		pBaraja.add(carta1);
 		pBaraja.add(carta2);
 		pBaraja.add(carta3);
