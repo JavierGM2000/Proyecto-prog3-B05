@@ -1,6 +1,13 @@
 package componentes;
 
-public class Estado {
+import ventanas.VentanaBase;
+
+public class Estado extends VentanaBase{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7112986026615575163L;
 	
 	private int dia;
 	private int dinero;
@@ -23,16 +30,48 @@ public class Estado {
 	
 	public void verificarDia() {
 		if(dia >= 30) {
-			if(getProgreso() >= 50 && getSalud() > 0);
-				finDelJuego();
+			if(getProgreso() >= 50 && getSalud() > 0) {
+				finDelJuegoBueno();				
+			}
+			if(getProgreso() < 50 || getSalud() <= 0) {
+				finDelJuegoMalo();
+			}
+		}if (dia < 30) {
+			// Aplicar efectos de las cartas al estado del jugador
+			if(getSalud() > 0) {
+				reroll();
+				dia++;
+			} if(getSalud() <= 0) {
+				finDelJuegoMitad();
+			}
 		}
+		
 	}
 
-	public void finDelJuego() {
+	public void finDelJuegoBueno() {
 		
-		// TODO
+		// TODO Auto-generated method stub
 		
 	}
+	
+	public void finDelJuegoMalo() {
+		
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void finDelJuegoMitad() {
+		
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void reroll() {
+		
+	// TODO Auto-generated method stub
+	
+}
+
 
 	public int getDia() {
 		return dia;
