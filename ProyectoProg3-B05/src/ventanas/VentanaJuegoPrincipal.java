@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -30,9 +32,9 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 	GestorBBDD GBBDD;
 	GestorVentanas Padre;
 	Estado estadoJuego = new Estado();
-	Carta cNula1 = new Carta(00,TipoCarta.OCIO, new Buff(),"carta nula");
-	Carta cNula2 = new Carta(00,TipoCarta.ESTUDIO, new Buff(),"carta nula");
-	Carta cNula3 = new Carta(00,TipoCarta.TRABAJO, new Buff(),"carta nula");
+	Carta carta1 = new Carta(00,TipoCarta.OCIO, new Buff(),"carta nula");
+	Carta carta2 = new Carta(00,TipoCarta.ESTUDIO, new Buff(),"carta nula");
+	Carta carta3 = new Carta(00,TipoCarta.TRABAJO, new Buff(),"carta nula");
 	
 	public VentanaJuegoPrincipal() {
 
@@ -92,21 +94,50 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		pbProyecto.repaint();
 		pBarras.add(pbProyecto);
 		
+		// --- Parte de la derecha de la Ventana (Descripcion de las cartas)
+		
+				PanelDatosCarta panelDescripcion = new PanelDatosCarta(carta1);
+				this.add(panelDescripcion, BorderLayout.CENTER);
+		
 		// -- Parte del medio de la Ventana (La exposicion de las cartas que pueden tocar + rerroll + siguiente dia)
 		
 		JPanel pPantallaBaraja = new JPanel(new BorderLayout());
-		add(pPantallaBaraja, BorderLayout.CENTER);
+		add(pPantallaBaraja, BorderLayout.WEST);
 		
 		JPanel pBaraja = new JPanel(new GridLayout(1,3));
 		pPantallaBaraja.add(pBaraja, BorderLayout.CENTER);
 		
-		PanelCarta carta1 = new PanelCarta(cNula1);
-		PanelCarta carta2 = new PanelCarta(cNula2);
-		PanelCarta carta3 = new PanelCarta(cNula3);
+		PanelCarta pnCarta1 = new PanelCarta(carta1);
+		//Pasamos al panel de la derecha la carta 1 para que se muestre
+		pnCarta1.boton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panelDescripcion.actualizarCarta(carta1);
+			}
+		});
+		PanelCarta pnCarta2 = new PanelCarta(carta2);
+		//Pasamos al panel de la derecha la carta 2 para que se muestre
+		pnCarta2.boton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panelDescripcion.actualizarCarta(carta2);
+			}
+		});
+		PanelCarta pnCarta3 = new PanelCarta(carta3);
+		//Pasamos al panel de la derecha la carta 3 para que se muestre
+		pnCarta3.boton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panelDescripcion.actualizarCarta(carta3);
+			}
+		});
 		
-		pBaraja.add(carta1);
-		pBaraja.add(carta2);
-		pBaraja.add(carta3);
+		pBaraja.add(pnCarta1);
+		pBaraja.add(pnCarta2);
+		pBaraja.add(pnCarta3);
 		
 		JPanel pBarraBotones = new JPanel(new FlowLayout());
 		pPantallaBaraja.add(pBarraBotones, BorderLayout.SOUTH);
@@ -120,24 +151,18 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		JButton bRellroll = new JButton("Re-Roll");
 		pBarraBotones.add(bRellroll);
 		
-		// --- Parte de la derecha de la Ventana (Descripcion de las cartas)
+	bRellroll.addActionListener(new ActionListener() {
 		
-		JPanel pRight = new JPanel(new BorderLayout());
-		add(pRight, BorderLayout.EAST);
-
-		JLabel nomCarta = new JLabel("Nombre de la carta seleccioana");
-		pRight.add(nomCarta, BorderLayout.NORTH);
-		
-		JPanel cuerpoDescCarta = new JPanel();
-		cuerpoDescCarta.setLayout(new BoxLayout(cuerpoDescCarta, BoxLayout.Y_AXIS));
-		pRight.add(cuerpoDescCarta, BorderLayout.CENTER);
-		
-		JLabel carta = new JLabel("Insertar imagen de la carta");
-		cuerpoDescCarta.add(carta);
-		
-		JLabel descCarta =  new JLabel(
-				"Aqui se le insertará toda la descripcion a la carta para saber lo que altera");
-		cuerpoDescCarta.add(descCarta);
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//Obtener 3 cartas aleatorias de la base de datos
+			//TODO
+			//Actualizamos los paneles que muestran las cartas
+			pnCarta1.actualizarCarta(carta3);
+			pnCarta2.actualizarCarta(carta1);
+			pnCarta3.actualizarCarta(carta2);
+		}
+	});
 		
 		// --- Parte de abajo de la Ventana (Conteo de los dias)
 		
