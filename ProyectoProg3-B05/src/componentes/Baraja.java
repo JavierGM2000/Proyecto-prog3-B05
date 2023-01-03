@@ -14,11 +14,16 @@ public class Baraja {
  	}
  	
  	public Baraja() {
- 		
+ 	
  	}
  	
  	public boolean insertarCarta(int id) {
  		return false;
+ 	}
+ 	
+ 	public Carta extraerCarta() {
+ 		Random ran = new Random();
+ 		return baraja.get(ran.nextInt(3));
  	}
  	
  	public void Barajar() {

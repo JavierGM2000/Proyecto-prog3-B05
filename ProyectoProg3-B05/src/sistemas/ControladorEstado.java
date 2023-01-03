@@ -39,7 +39,7 @@ public class ControladorEstado {
 	public double getEstudios() {
 		return estudios;
 	}
-	public int getIdea() {
+	public int getDia() {
 		return dia;
 	}
 	public int getHorasActuales() {

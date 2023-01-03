@@ -1,12 +1,18 @@
 package ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Insets;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import componentes.Carta;
 
@@ -15,6 +21,7 @@ public class PanelDatosCarta extends PanelCarta{
 	public PanelDatosCarta(Carta carta) {
 		super(carta);
 		this.setSize(800, getHeight());
+		descripcion.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		descripcion.setText(carta.getDescripcion());
 		descripcion.setSize(getMaximumSize());
 		pCentro.add(descripcion, BorderLayout.CENTER);

@@ -23,7 +23,7 @@ public class PanelCarta extends JPanel{
 	JLabel imagen = new JLabel();
 	JTextArea bufos = new JTextArea();
 	JLabel titulo = new JLabel();
-	JLabel descripcion = new JLabel();
+	JTextArea descripcion = new JTextArea();
 	JPanel pTitulo = new JPanel();
 	JPanel pCentro = new JPanel();
 	JPanel pCentroIz = new JPanel();
