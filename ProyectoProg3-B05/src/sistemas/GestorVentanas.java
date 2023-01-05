@@ -33,7 +33,7 @@ public class GestorVentanas {
 	}
 
 	public void cambiarVentana(int idVentana) {
-		loggeGV.info(String.format("Cambiando ventana a la número %x", idVentana));
+		loggeGV.info(String.format("Cambiando ventana a la número %d", idVentana));
 		ventanas[actual].setVisible(false);
 		actual = idVentana;
 		ventanas[idVentana].prepararInit();
@@ -41,7 +41,13 @@ public class GestorVentanas {
 	}
 
 	public void setUsu(int usId, String usNom) {
+		loggeGV.info(String.format("Usuario actual puesto a %d", usId));
 		Usu = new Usuario(usNom, usId);
+	}
+	
+	public void closeUsu() {
+		loggeGV.info("Quitado usuario actual");
+		Usu = null;
 	}
 
 	public String getUsuName() {

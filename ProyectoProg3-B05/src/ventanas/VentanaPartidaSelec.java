@@ -34,15 +34,37 @@ public class VentanaPartidaSelec extends VentanaBase {
 		
 		JPanel pCentro = new JPanel();
 		JPanel pNorte = new JPanel();
+		JPanel pSur = new JPanel();
 		pCentro.setLayout(new BoxLayout(pCentro, BoxLayout.Y_AXIS));
 		add(pCentro, BorderLayout.CENTER);
 		add(pNorte, BorderLayout.NORTH);
-		
+		add(pSur, BorderLayout.SOUTH);
 		
 		lUsuario = new JLabel("Hola,  ", SwingConstants.CENTER);
 		pNorte.add(lUsuario);
 		
+		JButton bSalir = new JButton("Cancelar");
+		bSalir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int n = JOptionPane.showOptionDialog(rootPane, "Seguro que quieres cerrar tu sesión?", "Log-out", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+					if (n==0) {
+							
+						Padre.cambiarVentana(0);
+					}
+			}
+		});
+		JButton bNuevaPartida = new JButton("Nueva Partida");
+		bNuevaPartida.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		
+		
+		pSur.add(bSalir);
+		pSur.add(bNuevaPartida);
 		
 		setVisible(false);
 	}
