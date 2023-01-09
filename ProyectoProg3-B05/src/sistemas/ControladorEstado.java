@@ -144,6 +144,10 @@ public class ControladorEstado {
 		return horasActuales;
 	}
 	
+	public int getHorasIniciales() {
+		return horasInicial;
+	}
+	
 	public static void main(String[] args) {
 		ControladorEstado ce = new ControladorEstado();
 		ce.finDelJuegoMalo();
