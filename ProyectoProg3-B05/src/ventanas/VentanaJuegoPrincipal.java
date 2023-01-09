@@ -20,8 +20,8 @@ import javax.swing.JToolBar.Separator;
 import componentes.Baraja;
 import componentes.Buff;
 import componentes.Carta;
-import componentes.Estado;
 import componentes.TipoCarta;
+import sistemas.ControladorEstado;
 import sistemas.GestorBBDD;
 import sistemas.GestorVentanas;
 
@@ -33,7 +33,6 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 	
 	GestorBBDD GBBDD;
 	GestorVentanas Padre;
-	Estado estadoJuego = new Estado();
 	//Datos de prueba
 	//v
 	List<Carta> lista = new ArrayList<Carta>();
@@ -43,7 +42,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 	Carta carta3 = new Carta(00,TipoCarta.TRABAJO, new Buff(),"Te toca ir a trabajar");
 	//^
 	
-	public VentanaJuegoPrincipal() {
+	public VentanaJuegoPrincipal(ControladorEstado estadoJuego) {
 		//Datos de prueba
 		//v
 		lista.add(carta1);
@@ -197,6 +196,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		carta3 = barjaCar.extraerCarta();
 	}
 	public static void main(String[] args) {
-		new VentanaJuegoPrincipal();
+		ControladorEstado estado = new ControladorEstado();
+		new VentanaJuegoPrincipal(estado);
 	}
 }
