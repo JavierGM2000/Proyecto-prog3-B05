@@ -2,7 +2,11 @@ package ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -13,22 +17,45 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JToolBar.Separator;
 
+import componentes.Baraja;
+import componentes.Buff;
+import componentes.Carta;
 import componentes.Estado;
+import componentes.TipoCarta;
 import sistemas.GestorBBDD;
 import sistemas.GestorVentanas;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class VentanaJuegoPrincipal extends VentanaBase{
 	
-	
 	GestorBBDD GBBDD;
 	GestorVentanas Padre;
 	Estado estadoJuego = new Estado();
+	//Datos de prueba
+	//v
+	List<Carta> lista = new ArrayList<Carta>();
+	Buff b1 = new Buff(0.5, 0.8, 0.7, 0.7, 0.3, 0.8, 0.2, 0.4, 3);
+	Carta carta1 = new Carta(00,TipoCarta.OCIO, b1,"Ya es hora de desconectar un poco\nNO?");
+	Carta carta2 = new Carta(00,TipoCarta.ESTUDIO, new Buff(),"Has decidido ponerte a \nestudiar");
+	Carta carta3 = new Carta(00,TipoCarta.TRABAJO, new Buff(),"Te toca ir a trabajar");
+	//^
 	
 	public VentanaJuegoPrincipal() {
-
+		//Datos de prueba
+		//v
+		lista.add(carta1);
+		lista.add(carta2);
+		lista.add(carta3);
+		//^
 		
+		//Crear la baraja de cartas
+		//TODO
+		Baraja barajaCartas = new Baraja(lista);
+		
+		cargarCartas(barajaCartas);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(960, 540);
 		setResizable(false);
@@ -36,7 +63,6 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		setTitle("Titulo del juego"); // Hay que cambiarlo cuando se sepa el titulo final
 		setLayout(new BorderLayout());
 		// ---- Parte de arriba de la Ventana (Zona del menu + Progress bars)
-		
 		
 		// Zona del Menu
 			
@@ -84,20 +110,50 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		pbProyecto.repaint();
 		pBarras.add(pbProyecto);
 		
+		// --- Parte de la derecha de la Ventana (Descripcion de las cartas)
+		
+		PanelDatosCarta panelDescripcion = new PanelDatosCarta(carta1);
+		this.add(panelDescripcion, BorderLayout.CENTER);
+		
 		// -- Parte del medio de la Ventana (La exposicion de las cartas que pueden tocar + rerroll + siguiente dia)
 		
 		JPanel pPantallaBaraja = new JPanel(new BorderLayout());
-		add(pPantallaBaraja, BorderLayout.CENTER);
+		add(pPantallaBaraja, BorderLayout.WEST);
 		
-		JPanel pBaraja = new JPanel(new FlowLayout());
+		JPanel pBaraja = new JPanel(new GridLayout(1,3));
 		pPantallaBaraja.add(pBaraja, BorderLayout.CENTER);
 		
-		JPanel carta1 = new JPanel();
-		JPanel carta2 = new JPanel();
-		JPanel carta3 = new JPanel();
-		pBaraja.add(carta1);
-		pBaraja.add(carta2);
-		pBaraja.add(carta3);
+		PanelCarta pnCarta1 = new PanelCarta(carta1);
+		//Pasamos al panel de la derecha la carta 1 para que se muestre
+		pnCarta1.boton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panelDescripcion.actualizarCarta(carta1);
+			}
+		});
+		PanelCarta pnCarta2 = new PanelCarta(carta2);
+		//Pasamos al panel de la derecha la carta 2 para que se muestre
+		pnCarta2.boton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panelDescripcion.actualizarCarta(carta2);
+			}
+		});
+		PanelCarta pnCarta3 = new PanelCarta(carta3);
+		//Pasamos al panel de la derecha la carta 3 para que se muestre
+		pnCarta3.boton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panelDescripcion.actualizarCarta(carta3);
+			}
+		});
+		
+		pBaraja.add(pnCarta1);
+		pBaraja.add(pnCarta2);
+		pBaraja.add(pnCarta3);
 		
 		JPanel pBarraBotones = new JPanel(new FlowLayout());
 		pPantallaBaraja.add(pBarraBotones, BorderLayout.SOUTH);
@@ -111,30 +167,23 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		JButton bRellroll = new JButton("Re-Roll");
 		pBarraBotones.add(bRellroll);
 		
-		// --- Parte de la derecha de la Ventana (Descripcion de las cartas)
+	bRellroll.addActionListener(new ActionListener() {
 		
-		JPanel pRight = new JPanel(new BorderLayout());
-		add(pRight, BorderLayout.EAST);
-
-		JLabel nomCarta = new JLabel("Nombre de la carta seleccioana");
-		pRight.add(nomCarta, BorderLayout.NORTH);
-		
-		JPanel cuerpoDescCarta = new JPanel();
-		cuerpoDescCarta.setLayout(new BoxLayout(cuerpoDescCarta, BoxLayout.Y_AXIS));
-		pRight.add(cuerpoDescCarta, BorderLayout.CENTER);
-		
-		JLabel carta = new JLabel("Insertar imagen de la carta");
-		cuerpoDescCarta.add(carta);
-		
-		JLabel descCarta =  new JLabel(
-				"Aqui se le insertará toda la descripcion a la carta para saber lo que altera");
-		cuerpoDescCarta.add(descCarta);
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//Obtener 3 cartas aleatorias de la base de datos
+			cargarCartas(barajaCartas);
+			//Actualizamos los paneles que muestran las cartas
+			pnCarta1.actualizarCarta(carta1);
+			pnCarta2.actualizarCarta(carta2);
+			pnCarta3.actualizarCarta(carta3);
+		}
+	});
 		
 		// --- Parte de abajo de la Ventana (Conteo de los dias)
 		
 		JPanel pBottom = new JPanel(new FlowLayout());
 		add(pBottom, BorderLayout.SOUTH);
-		
 		
 		JLabel lDiasPasados = new JLabel("Día: " + estadoJuego.getDia() + "/30");
 		pBottom.add(lDiasPasados);
@@ -142,6 +191,11 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		setVisible(true);
 	}
 	
+	public void cargarCartas(Baraja barjaCar) {
+		carta1 = barjaCar.extraerCarta();
+		carta2 = barjaCar.extraerCarta();
+		carta3 = barjaCar.extraerCarta();
+	}
 	public static void main(String[] args) {
 		new VentanaJuegoPrincipal();
 	}
