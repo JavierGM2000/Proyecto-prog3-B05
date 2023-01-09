@@ -148,6 +148,10 @@ public class ControladorEstado {
 		return horasInicial;
 	}
 	
+	public void setHorasActuales(int horasActuales) {
+		this.horasActuales = horasActuales;
+	}
+
 	public static void main(String[] args) {
 		ControladorEstado ce = new ControladorEstado();
 		ce.finDelJuegoMalo();
