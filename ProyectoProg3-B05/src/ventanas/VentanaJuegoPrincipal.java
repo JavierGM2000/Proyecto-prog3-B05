@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JToolBar.Separator;
 
-import sistemas.ControladorEstado;
+import componentes.Estado;
 import sistemas.GestorBBDD;
 import sistemas.GestorVentanas;
 
@@ -24,8 +24,9 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 	
 	GestorBBDD GBBDD;
 	GestorVentanas Padre;
+	Estado estadoJuego = new Estado();
 	
-	public VentanaJuegoPrincipal(ControladorEstado estadoJuego) {
+	public VentanaJuegoPrincipal() {
 
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -142,6 +143,6 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 	}
 	
 	public static void main(String[] args) {
-		new VentanaJuegoPrincipal(new ControladorEstado());
+		new VentanaJuegoPrincipal();
 	}
 }
