@@ -11,8 +11,10 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JToolBar.Separator;
@@ -109,6 +111,16 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		pbProyecto.repaint();
 		pBarras.add(pbProyecto);
 		
+		JProgressBar pbHoras = new JProgressBar(0, 12);
+		pbHoras.setValue(estadoJuego.getHorasActuales());
+		pbHoras.setBackground(Color.GRAY);
+		pbHoras.setForeground(Color.MAGENTA);
+		pbHoras.setString(estadoJuego.getHorasActuales() + " /" + estadoJuego.getHorasIniciales() + "h");
+		pbHoras.setStringPainted(true);
+		pbHoras.getString();
+		pbHoras.repaint();
+		pBarras.add(pbHoras);
+		
 		// --- Parte de la derecha de la Ventana (Descripcion de las cartas)
 		
 		PanelDatosCarta panelDescripcion = new PanelDatosCarta(carta1);
@@ -170,12 +182,21 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			//Restamos 3 horas a las horas posibles del dia
+			if(estadoJuego.getHorasActuales()>3) {
+			estadoJuego.setHorasActuales(estadoJuego.getHorasActuales() - 3);
+			pbHoras.setValue(estadoJuego.getHorasActuales());
+			pbHoras.setString(estadoJuego.getHorasActuales() + " /" + estadoJuego.getHorasIniciales() + "h");
+			pbHoras.repaint();
 			//Obtener 3 cartas aleatorias de la base de datos
 			cargarCartas(barajaCartas);
 			//Actualizamos los paneles que muestran las cartas
 			pnCarta1.actualizarCarta(carta1);
 			pnCarta2.actualizarCarta(carta2);
 			pnCarta3.actualizarCarta(carta3);
+			} else {
+				JOptionPane.showInternalMessageDialog(null, "No puedes cambiar cartas \nno se dispone de suficientes horas");
+			}
 		}
 	});
 		
