@@ -40,10 +40,8 @@ public class ControladorEstado {
 				finDelJuegoMalo();
 			}
 		}if (dia < 30) {
-			// Aplicar efectos de las cartas al estado del jugador
 			if(getSalud() > 0) {
-				// Se pasara una funcion que entregue 3 cartas 
-				dia++;
+				setDia(getDia() + 1);;
 			} if(getSalud() <= 0) {
 				finDelJuegoMitad();
 			}
@@ -150,6 +148,10 @@ public class ControladorEstado {
 	
 	public void setHorasActuales(int horasActuales) {
 		this.horasActuales = horasActuales;
+	}
+	
+	public void setDia(int dia) {
+		this.dia = dia;
 	}
 
 	public static void main(String[] args) {
