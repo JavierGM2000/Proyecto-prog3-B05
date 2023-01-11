@@ -198,7 +198,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 					pBottom.removeAll();
 					JLabel lDiasPasadosActualizado = new JLabel("Día: " + estadoJuego.getDia() + "/30");
 					pBottom.add(lDiasPasadosActualizado);
-					estadoJuego.setHorasActuales(12);
+					estadoJuego.setHorasActuales(12); // TODO aqui vamos a tener que poner cuantas horas se van a necesitar si se le aplica algun buffo/nerffeo
 					pbHoras.setValue(estadoJuego.getHorasActuales());
 					pbHoras.setString(estadoJuego.getHorasActuales() + " /" + estadoJuego.getHorasIniciales() + "h");
 					pbHoras.repaint();
