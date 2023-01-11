@@ -53,4 +53,8 @@ public class GestorVentanas {
 	public String getUsuName() {
 		return Usu.getNombre();
 	}
+	
+	public int getUsuID() {
+		return Usu.getId();
+	}
 }

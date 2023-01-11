@@ -21,7 +21,7 @@ public class VentanaPartidaSelec extends VentanaBase {
 	GestorBBDD GBBDD;
 	GestorVentanas Padre;
 	JLabel lUsuario;
-	
+	JPanel pCentro;
 	public VentanaPartidaSelec(GestorBBDD inGBBDD,GestorVentanas inPadre) {
 		GBBDD = inGBBDD;
 		Padre = inPadre;
@@ -32,7 +32,7 @@ public class VentanaPartidaSelec extends VentanaBase {
 		setTitle("Elegir Partida");
 		setLayout(new BorderLayout());
 		
-		JPanel pCentro = new JPanel();
+		pCentro = new JPanel();
 		JPanel pNorte = new JPanel();
 		JPanel pSur = new JPanel();
 		pCentro.setLayout(new BoxLayout(pCentro, BoxLayout.Y_AXIS));
@@ -60,8 +60,7 @@ public class VentanaPartidaSelec extends VentanaBase {
 			public void actionPerformed(ActionEvent e) {
 				
 			}
-		});
-		
+		});	
 		
 		pSur.add(bSalir);
 		pSur.add(bNuevaPartida);
@@ -72,5 +71,14 @@ public class VentanaPartidaSelec extends VentanaBase {
 	@Override
 	public void prepararInit() {
 		lUsuario.setText("Hola, "+Padre.getUsuName());
+		this.remove(pCentro);
+		if(GBBDD.EncontrarPartidasUsuario(Padre.getUsuID())<=0) {
+			JLabel labelNoPartidas = new JLabel("No tienes ninguna partida creada, crea una nueva partida");
+			pCentro.add(labelNoPartidas);
+		} else {
+			
+		}
+		this.add(pCentro);
+		this.repaint();
 	}
 }
