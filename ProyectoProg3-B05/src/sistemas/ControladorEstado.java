@@ -3,11 +3,14 @@ package sistemas;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
+import org.json.simple.JSONObject;
+
 import componentes.Buff;
 import ventanas.VentanaJuegoPrincipal;
 
 public class ControladorEstado {
 	//Atributos basicos
+	private int partidaid;
 	private int progreso;
 	private int dinero;
 	private int salud;
@@ -121,6 +124,19 @@ public class ControladorEstado {
 		}
 	}
 
+	public boolean GuardarPartida() {
+		JSONObject obj = new JSONObject();
+		obj.put("progreso", this.progreso);
+		obj.put("salud", this.salud);
+		obj.put("estudios", this.estudios);
+		obj.put("dia", this.dia);
+		obj.put("horasInicial", this.horasInicial);
+		obj.put("horasActuales", this.horasActuales);
+		obj.put("buffos", this.buffos);
+		
+		
+		return false;
+	}
 	
 	// Geters de la clase
 	public int getProgreso() {

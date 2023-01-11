@@ -35,7 +35,7 @@ public class GestorBBDD {
 			// del repositorio
 			////////////////////////////////////////////
 			Conn = DriverManager.getConnection("jdbc:mysql://qahf589.emaginarte.info/qahf589?useSSL=false", "qahf589",
-					"Deustoim22");// Contraseña entre las comillas
+					"DeustoSim22");// Contraseña entre las comillas
 			loggerBBDD.fine("Conexion con la Base de Datos exitosa");
 		} catch (SQLException e) {
 			loggerBBDD.info("Conexion online fallida, intentando conexion local");
@@ -109,7 +109,7 @@ public class GestorBBDD {
 		}
 		
 		try (PreparedStatement pstmt = Conn
-				.prepareStatement("INSERT INTO `usuarios`(`nombre`, `mail`, `contra`) VALUES (?,?,?)")) {
+				.prepareStatement("INSERT INTO `usuarios`(`nombre`, `mail`, `contra`) VALUES (?,?,?)",Statement.RETURN_GENERATED_KEYS)) {
 			pstmt.setString(1, Usuario);
 			pstmt.setString(2, Mail);
 			String HashContra = BCrypt.withDefaults().hashToString(12, Contrasena);
@@ -148,6 +148,65 @@ public class GestorBBDD {
 			loggerBBDD.severe("Error al borrar un usuario en la Base de Datos");
 		}
 
+		return false;
+	}
+	
+	// Devuelve el número de partidas que tiene un usuario, si hay un error devuelve -1
+	public int EncontrarPartidasUsuario(int UsId) {
+		try (PreparedStatement pstmt = Conn.prepareStatement("SELECT COUNT(*) FROM `partida` WHERE `user_id`=?")) {
+			pstmt.setInt(1, UsId);
+			
+			ResultSet rs = pstmt.executeQuery();
+				
+				rs.next();
+				int cuentas = rs.getInt(1);
+				loggerBBDD.fine("Usuario -" + UsId + "- tiene el siguiente numero de cuentas: "+cuentas);
+				return cuentas;
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			loggerBBDD.severe("Error al borrar un usuario en la Base de Datos");
+		}
+		return -1;
+	}
+	//Devuelve el id de la partida que se ha creado
+	public int CrearPartidaParaUsuario(int UsId){
+		try (PreparedStatement pstmt = Conn
+				.prepareStatement("INSERT INTO `partida`(`user_id`, `last_used`, `info`) VALUES (?,NOW(),'')",Statement.RETURN_GENERATED_KEYS)) {
+			pstmt.setInt(1, UsId);
+			pstmt.executeUpdate();
+			try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					loggerBBDD.fine("Partida creada -" + generatedKeys.getLong(1) + "-");
+					return (int) generatedKeys.getLong(1);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			loggerBBDD.severe("Error al insertar un nuevo usuario en la Base de Datos");
+		}
+		return -1;
+	}
+	
+	public boolean ActualizarPartidaUsuario(String info,int partidaId) {
+		try (PreparedStatement pstmt = Conn.prepareStatement("UPDATE `partida` SET `last_used`=NOW(),`info`=? WHERE `id`=?")) {
+			pstmt.setString(1, info);
+			pstmt.setInt(2, partidaId);
+			
+			if(pstmt.executeUpdate()>0) {
+				loggerBBDD.fine("Partida " + partidaId + " actualizada");
+				return true;
+			}
+			return false;
+			
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			loggerBBDD.severe("Error al borrar un usuario en la Base de Datos");
+		}
 		return false;
 	}
 
