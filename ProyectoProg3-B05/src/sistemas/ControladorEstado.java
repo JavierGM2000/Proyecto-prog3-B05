@@ -41,7 +41,7 @@ public class ControladorEstado {
 			}
 		}if (dia < 30) {
 			if(getSalud() > 0) {
-				setDia(getDia() + 1);;
+				setDia(getDia() + 1);
 			} if(getSalud() <= 0) {
 				finDelJuegoMitad();
 			}
