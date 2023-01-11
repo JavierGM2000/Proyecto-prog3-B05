@@ -171,14 +171,37 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		
 		JButton bSiguienteDia = new JButton("Siguiente dia");
 		pBarraBotones.add(bSiguienteDia);
-		
+			
 		JButton bSeleccionar = new JButton("SELECCIONAR");
 		pBarraBotones.add(bSeleccionar);
 		
 		JButton bRellroll = new JButton("Re-Roll");
 		pBarraBotones.add(bRellroll);
 		
-	bRellroll.addActionListener(new ActionListener() {
+		JPanel pBottom = new JPanel(new FlowLayout());
+		add(pBottom, BorderLayout.SOUTH);
+		
+		JLabel lDiasPasados = new JLabel("Día: " + estadoJuego.getDia() + "/30");
+		pBottom.add(lDiasPasados);
+		
+		bSiguienteDia.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				estadoJuego.verificarDia();
+					//Obtener 3 cartas aleatorias de la base de datos
+					cargarCartas(barajaCartas);
+					//Actualizamos los paneles que muestran las cartas
+					pnCarta1.actualizarCarta(carta1);
+					pnCarta2.actualizarCarta(carta2);
+					pnCarta3.actualizarCarta(carta3);
+					pBottom.removeAll();
+					JLabel lDiasPasadosActualizado = new JLabel("Día: " + estadoJuego.getDia() + "/30");
+					pBottom.add(lDiasPasadosActualizado);
+			}
+		});
+		
+		bRellroll.addActionListener(new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -199,15 +222,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 			}
 		}
 	});
-		
-		// --- Parte de abajo de la Ventana (Conteo de los dias)
-		
-		JPanel pBottom = new JPanel(new FlowLayout());
-		add(pBottom, BorderLayout.SOUTH);
-		
-		JLabel lDiasPasados = new JLabel("Día: " + estadoJuego.getDia() + "/30");
-		pBottom.add(lDiasPasados);
-		
+
 		setVisible(true);
 	}
 	
