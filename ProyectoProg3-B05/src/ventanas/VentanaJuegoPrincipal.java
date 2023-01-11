@@ -198,6 +198,10 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 					pBottom.removeAll();
 					JLabel lDiasPasadosActualizado = new JLabel("Día: " + estadoJuego.getDia() + "/30");
 					pBottom.add(lDiasPasadosActualizado);
+					estadoJuego.setHorasActuales(12);
+					pbHoras.setValue(estadoJuego.getHorasActuales());
+					pbHoras.setString(estadoJuego.getHorasActuales() + " /" + estadoJuego.getHorasIniciales() + "h");
+					pbHoras.repaint();
 			}
 		});
 		
