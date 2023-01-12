@@ -16,12 +16,12 @@ public class Buff {
 	
 	// Contructor sin parametros. Por defecto en un día todos los buffos estan a 0
 	public Buff() {
-		buffProgreso = 0.0;
-		nerfProgreso = 0.0;
-		buffDinero = 0.0;
-		nerfDinero = 0.0;
-		buffFelicidad = 0.0;
-		nerfFelicidad = 0.0;
+		buffProgreso = 1.0;
+		nerfProgreso = 1.0;
+		buffDinero = 1.0;
+		nerfDinero = 1.0;
+		buffFelicidad = 1.0;
+		nerfFelicidad = 1.0;
 		modDias = 0;
 		loggerBuff.info("Creado Buff sin parametros");
 	}

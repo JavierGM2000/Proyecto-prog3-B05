@@ -38,7 +38,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 	//Datos de prueba
 	//v
 	List<Carta> lista = new ArrayList<Carta>();
-	Buff b1 = new Buff(0.5, 0.8, 0.0, 0.7, 0.0, 0.0, 0);
+	Buff b1 = new Buff(1.5, 1.8, 1.0, 0.7, 1.0, 1.0, 0);
 	Carta carta1 = new Carta(00,TipoCarta.OCIO, b1,10,-15,0,2,"Ya es hora de desconectar un poco\nNO?");
 	Carta carta2 = new Carta(00,TipoCarta.ESTUDIO, new Buff(),-20,5,25,2,"Has decidido ponerte a \nestudiar");
 	Carta carta3 = new Carta(00,TipoCarta.TRABAJO, new Buff(),-15,50,5,4,"Te toca ir a trabajar");
@@ -173,6 +173,32 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		pBarraBotones.add(bSiguienteDia);
 			
 		JButton bSeleccionar = new JButton("SELECCIONAR");
+		bSeleccionar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(estadoJuego.getHorasActuales()>=panelDescripcion.getCarta().getHoras()) {
+				estadoJuego.aplicarCarta(panelDescripcion.getCarta());
+				pbSalud.setValue(estadoJuego.getSalud());
+				pbSalud.setString(estadoJuego.getSalud() + "/" + pbSalud.getMaximum() + "(PS)");
+				pbSalud.repaint();
+				
+				pbDinero.setValue(estadoJuego.getDinero());
+				pbDinero.setString(estadoJuego.getDinero() + "/" + pbDinero.getMaximum() + "(€)");
+				pbDinero.repaint();
+				
+				pbProyecto.setValue(estadoJuego.getProgreso());
+				pbProyecto.setString(estadoJuego.getProgreso() + " % ");
+				pbProyecto.repaint();
+				
+				pbHoras.setValue(estadoJuego.getHorasActuales());
+				pbHoras.setString(estadoJuego.getHorasActuales() + " /" + estadoJuego.getHorasIniciales() + "h");
+				pbHoras.repaint();
+				} else {
+					JOptionPane.showInternalMessageDialog(null, "No tienes suficientes horas \nPasa al siguiente dia");
+				}
+			}
+		});
 		pBarraBotones.add(bSeleccionar);
 		
 		JButton bRellroll = new JButton("Re-Roll");
@@ -210,7 +236,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//Restamos 3 horas a las horas posibles del dia
-			if(estadoJuego.getHorasActuales()>3) {
+			if(estadoJuego.getHorasActuales()>=3) {
 			estadoJuego.setHorasActuales(estadoJuego.getHorasActuales() - 3);
 			pbHoras.setValue(estadoJuego.getHorasActuales());
 			pbHoras.setString(estadoJuego.getHorasActuales() + " /" + estadoJuego.getHorasIniciales() + "h");

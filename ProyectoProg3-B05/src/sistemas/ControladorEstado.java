@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
 
 import componentes.Buff;
+import componentes.Carta;
 import ventanas.VentanaJuegoPrincipal;
 
 public class ControladorEstado {
@@ -64,6 +65,22 @@ public class ControladorEstado {
 		
 	}
 
+	public void aplicarCarta(Carta cartaA) {
+		this.buffos[cartaA.getBufo().getModDias()] = cartaA.getBufo();
+		if (this.buffos[dia]!= null){
+			System.out.println("no nulo");
+			this.salud = (int) (this.salud+cartaA.getSalud()*this.buffos[dia].getBuffFelicidad());
+			this.dinero = (int) (this.dinero+cartaA.getDinero()*this.buffos[dia].getBuffDinero());
+			this.progreso = (int) (this.progreso+cartaA.getProgreso()*this.buffos[dia].getBuffProgreso());
+		}else {
+			this.salud = this.salud+cartaA.getSalud();
+			this.dinero = this.dinero+cartaA.getDinero();
+			this.progreso = this.progreso+cartaA.getProgreso();
+		}
+		
+		this.horasActuales = this.horasActuales-cartaA.getHoras();
+	}
+	
 	public void finDelJuegoBueno() {
 		
 		// TODO Auto-generated method stub

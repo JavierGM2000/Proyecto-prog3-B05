@@ -62,4 +62,8 @@ public class PanelDatosCarta extends PanelCarta{
 		this.repaint();
 		
 	}
+	
+	public Carta getCarta() {
+		return carta;
+	}
 }
