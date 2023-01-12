@@ -50,7 +50,7 @@ public class ControladorEstado {
 			horasActuales=12;
 			buffos = new Buff[30];
 		}
-	
+
 	public void verificarDia() {
 		if(dia >= 30) {
 			if(getProgreso() >= 50) {
@@ -94,8 +94,7 @@ public class ControladorEstado {
 		int opcion = JOptionPane.showOptionDialog(null, frase, "Final del juego", 0, JOptionPane.PLAIN_MESSAGE, null, opciones, "Ir al Menu");
 		
 		if(opcion == 0) { // Ir al menu
-
-			
+			gestorV.cambiarVentana(2);
 		}
 	}
 	
@@ -116,7 +115,7 @@ public class ControladorEstado {
 		int opcion = JOptionPane.showOptionDialog(null, frase, "Final del juego", 0, JOptionPane.PLAIN_MESSAGE, null, opciones, "Ir al Menu");
 		
 		if(opcion == 0) { // Ir al menu
-			
+			gestorV.cambiarVentana(2);
 		}
 	}
 	
@@ -129,7 +128,7 @@ public class ControladorEstado {
 		int opcion = JOptionPane.showOptionDialog(null, frase, "Final del juego", 0, JOptionPane.PLAIN_MESSAGE, null, opciones, "Ir al Menu");
 		
 		if(opcion == 0) { // Ir al menu
-			
+			gestorV.cambiarVentana(2);
 		}
 	}
 
@@ -172,6 +171,11 @@ public class ControladorEstado {
 	public void setDia(int dia) {
 		this.dia = dia;
 	}
+	
+	
+	public GestorVentanas getGestorV() {
+			return gestorV;
+		}
 
 //	public static void main(String[] args) {
 //		ControladorEstado ce = new ControladorEstado();
