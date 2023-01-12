@@ -38,7 +38,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 	//Datos de prueba
 	//v
 	List<Carta> lista = new ArrayList<Carta>();
-	Buff b1 = new Buff(0.5, 0.8, 0.7, 0.7, 0.3, 0.8, 3);
+	Buff b1 = new Buff(0.5, 0.8, 0.0, 0.7, 0.0, 0.0, 0);
 	Carta carta1 = new Carta(00,TipoCarta.OCIO, b1,10,-15,0,"Ya es hora de desconectar un poco\nNO?");
 	Carta carta2 = new Carta(00,TipoCarta.ESTUDIO, new Buff(),-20,5,25,"Has decidido ponerte a \nestudiar");
 	Carta carta3 = new Carta(00,TipoCarta.TRABAJO, new Buff(),-15,50,5,"Te toca ir a trabajar");
@@ -76,7 +76,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		JButton bMenu = new JButton("Menu"); // Icono de menu mucho mas adecuado
 		pTopDerecha.add(bMenu);
 		
-		// Zona de los Progress Bars
+		// Zona de los Progress Bars 
 		
 		JPanel pBarras = new JPanel(new FlowLayout());
 		pTop.add(pBarras, BorderLayout.CENTER);
