@@ -9,6 +9,9 @@ import componentes.Buff;
 import ventanas.VentanaJuegoPrincipal;
 
 public class ControladorEstado {
+	
+	// Gestor Ventana
+	private GestorVentanas gestorV;
 	//Atributos basicos
 	private int partidaid;
 	private int progreso;
@@ -23,7 +26,8 @@ public class ControladorEstado {
 	private Buff[] buffos;
 	
 	//Constructor vacio para cuando creamos una nueva partida
-	public ControladorEstado() {
+	public ControladorEstado(GestorVentanas gestorV) {
+		this.gestorV = gestorV;
 		partidaid=0;
 		progreso=0;
 		dinero=100;
@@ -35,7 +39,8 @@ public class ControladorEstado {
 	}
 	
 	//Constructor para cuando creamos una partida nueva con una id
-		public ControladorEstado(int partId) {
+		public ControladorEstado(int partId, GestorVentanas gestorV) {
+			this.gestorV = gestorV;
 			partidaid = partId;
 			progreso=0;
 			dinero=100;
@@ -74,7 +79,7 @@ public class ControladorEstado {
 		// Opcion 1: Ir al menu del juego (pantalla de partidas)
 		// Opcion 2: Crear nueva partida
 		
-		String[] opciones = {"Nueva partida", "Ir al Menu"};
+		String[] opciones = {"Ir al Menu"};
 		
 		String frase = String.format("Enhorabuena has finalizado el proyecto con un %d%%.", getProgreso());
 		
@@ -88,17 +93,15 @@ public class ControladorEstado {
 		
 		int opcion = JOptionPane.showOptionDialog(null, frase, "Final del juego", 0, JOptionPane.PLAIN_MESSAGE, null, opciones, "Ir al Menu");
 		
-		if(opcion == 0) { // Nueva Partida
-			ControladorEstado nuevo = new ControladorEstado();
-			VentanaJuegoPrincipal vj = new  VentanaJuegoPrincipal(nuevo);
-		}else { // Ir al menu
-			// Ventana Menu (Esperar hasta que este hecho)
+		if(opcion == 0) { // Ir al menu
+
+			
 		}
 	}
 	
 	public void finDelJuegoMalo() {
 		
-		String[] opciones = {"Nueva partida", "Ir al Menu"};
+		String[] opciones = {"Ir al Menu"};
 		
 		String frase = String.format("No llegaste a aprobar el proyecto, solo conseguiste un %d%%.", getProgreso());
 		
@@ -112,27 +115,21 @@ public class ControladorEstado {
 		
 		int opcion = JOptionPane.showOptionDialog(null, frase, "Final del juego", 0, JOptionPane.PLAIN_MESSAGE, null, opciones, "Ir al Menu");
 		
-		if(opcion == 0) { // Nueva Partida
-			ControladorEstado nuevo = new ControladorEstado();
-			VentanaJuegoPrincipal vj = new  VentanaJuegoPrincipal(nuevo);
-		}else { // Ir al menu
-			// Ventana Menu (Esperar hasta que este hecho)
+		if(opcion == 0) { // Ir al menu
+			
 		}
 	}
 	
 	public void finDelJuegoMitad() {
 		
-		String[] opciones = {"Nueva partida", "Ir al Menu"};
+		String[] opciones = {"Ir al Menu"};
 		
 		String frase = String.format("Has colapsado de tanto trabajar cuando el proyecto iba un %d%%.", getProgreso());
 		
 		int opcion = JOptionPane.showOptionDialog(null, frase, "Final del juego", 0, JOptionPane.PLAIN_MESSAGE, null, opciones, "Ir al Menu");
 		
-		if(opcion == 0) { // Nueva Partida
-			ControladorEstado nuevo = new ControladorEstado();
-			VentanaJuegoPrincipal vj = new  VentanaJuegoPrincipal(nuevo);
-		}else { // Ir al menu
-			// Ventana Menu (Esperar hasta que este hecho)
+		if(opcion == 0) { // Ir al menu
+			
 		}
 	}
 
@@ -176,8 +173,8 @@ public class ControladorEstado {
 		this.dia = dia;
 	}
 
-	public static void main(String[] args) {
-		ControladorEstado ce = new ControladorEstado();
-		ce.finDelJuegoMalo();
-	}
+//	public static void main(String[] args) {
+//		ControladorEstado ce = new ControladorEstado();
+//		ce.finDelJuegoMalo();
+//	}
 }

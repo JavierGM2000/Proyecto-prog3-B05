@@ -42,11 +42,11 @@ public class GestorVentanas {
 		ventanas[idVentana].setVisible(true);
 	}
 	
-	public void empezarNuevaPartida() {
+	public void empezarNuevaPartida(GestorVentanas gestorV) {
 		loggeGV.info(String.format("Empezando nueva partida para el usuario %d", Usu.getId()));
 		ventanas[actual].setVisible(false);
 		int idPartida = GBBDD.CrearPartidaParaUsuario(Usu.getId());
-		ControladorEstado CE = new ControladorEstado(idPartida);
+		ControladorEstado CE = new ControladorEstado(idPartida, gestorV);
 		ventanas[3] = new VentanaJuegoPrincipal(CE);
 	}
 	
