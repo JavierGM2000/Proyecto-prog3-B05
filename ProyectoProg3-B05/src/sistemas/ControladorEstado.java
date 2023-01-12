@@ -144,8 +144,6 @@ public class ControladorEstado {
 		obj.put("horasInicial", this.horasInicial);
 		obj.put("horasActuales", this.horasActuales);
 		obj.put("buffos", this.buffos);
-		
-		
 		return false;
 	}
 	
