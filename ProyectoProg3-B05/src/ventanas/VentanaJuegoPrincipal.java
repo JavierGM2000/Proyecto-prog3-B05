@@ -84,9 +84,11 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 				int opcion = JOptionPane.showOptionDialog(null, "Que quieres hacer?", "Guardar y Salir", 0, JOptionPane.PLAIN_MESSAGE, null, opciones, "Guardar y salir");
 				if(opcion == 0) {
 					estadoJuego.getGestorV().cambiarVentana(2);
+					setVisible(false);
 				} else {
 					estadoJuego.GuardarPartida();
 					estadoJuego.getGestorV().cambiarVentana(2);
+					setVisible(false);
 				}
 			}
 		});
