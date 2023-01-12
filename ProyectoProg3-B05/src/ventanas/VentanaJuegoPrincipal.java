@@ -38,10 +38,10 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 	//Datos de prueba
 	//v
 	List<Carta> lista = new ArrayList<Carta>();
-	Buff b1 = new Buff(0.5, 0.8, 0.7, 0.7, 0.3, 0.8, 0.2, 0.4, 3);
-	Carta carta1 = new Carta(00,TipoCarta.OCIO, b1,"Ya es hora de desconectar un poco\nNO?");
-	Carta carta2 = new Carta(00,TipoCarta.ESTUDIO, new Buff(),"Has decidido ponerte a \nestudiar");
-	Carta carta3 = new Carta(00,TipoCarta.TRABAJO, new Buff(),"Te toca ir a trabajar");
+	Buff b1 = new Buff(0.5, 0.8, 0.7, 0.7, 0.3, 0.8, 3);
+	Carta carta1 = new Carta(00,TipoCarta.OCIO, b1,10,-15,0,"Ya es hora de desconectar un poco\nNO?");
+	Carta carta2 = new Carta(00,TipoCarta.ESTUDIO, new Buff(),-20,5,25,"Has decidido ponerte a \nestudiar");
+	Carta carta3 = new Carta(00,TipoCarta.TRABAJO, new Buff(),-15,50,5,"Te toca ir a trabajar");
 	//^
 	
 	public VentanaJuegoPrincipal(ControladorEstado estadoJuego) {

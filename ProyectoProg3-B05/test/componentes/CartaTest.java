@@ -16,11 +16,11 @@ public class CartaTest {
 	
 	@Before
 	public void setUp() {
-		b1 = new Buff(0.5, 0.8, 0.7, 0.7, 0.3, 0.8, 0.2, 0.4, 3);
-		carta = new Carta(1, TipoCarta.ESTUDIO, b, "descripcion");
-		carta2 = new Carta(1, TipoCarta.ESTUDIO, b, "descripcion");
-		carta3 = new Carta(1, TipoCarta.OCIO, b, "descripcion");
-		carta4 = new Carta(1, TipoCarta.ESTUDIO, b1, "descripcion");
+		b1 = new Buff(0.5, 0.8, 0.7, 0.7, 0.3, 0.8, 3);
+		carta = new Carta(1, TipoCarta.ESTUDIO, b, -15, 0, 30, "descripcion");
+		carta2 = new Carta(1, TipoCarta.ESTUDIO, b, -15,0,30,"descripcion");
+		carta3 = new Carta(1, TipoCarta.OCIO, b, 35,-20,0,"descripcion");
+		carta4 = new Carta(1, TipoCarta.ESTUDIO, b1, -10,0,20,"descripcion");
 	}
 	
 	@Test
@@ -34,6 +34,30 @@ public class CartaTest {
 	@Test
 	public void testgetBufo() {
 		assertEquals(carta.getBufo(), b);
+	}
+	@Test
+	public void testgetSalud() {
+		assertEquals(carta.getSalud(), -15);
+	}
+	@Test
+	public void testgetSalud2() {
+		assertEquals(carta3.getSalud(), 35);
+	}
+	@Test
+	public void testgetDinero() {
+		assertEquals(carta.getDinero(), 0);
+	}
+	@Test
+	public void testgetDinero2() {
+		assertEquals(carta3.getDinero(), -20);
+	}
+	@Test
+	public void testgetProgreso() {
+		assertEquals(carta.getProgreso(), 30);
+	}
+	@Test
+	public void testgetProgreso2() {
+		assertEquals(carta3.getProgreso(), 0);
 	}
 	@Test
 	public void testgetDescripcion() {

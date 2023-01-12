@@ -14,7 +14,7 @@ public class ControladorEstado {
 	private int progreso;
 	private int dinero;
 	private int salud;
-	private int estudios;
+
 	//Variables que controlan el día y las horas
 	private int dia;
 	private int horasInicial;
@@ -27,7 +27,6 @@ public class ControladorEstado {
 		progreso=0;
 		dinero=100;
 		salud=50;
-		estudios=0;
 		dia=0;//El contador de dias empezará en 0 para ir a la par con el array de buffos
 		horasInicial=12;//Valor base de horas que hay en un día sin buffos
 		horasActuales=12;
@@ -128,7 +127,6 @@ public class ControladorEstado {
 		JSONObject obj = new JSONObject();
 		obj.put("progreso", this.progreso);
 		obj.put("salud", this.salud);
-		obj.put("estudios", this.estudios);
 		obj.put("dia", this.dia);
 		obj.put("horasInicial", this.horasInicial);
 		obj.put("horasActuales", this.horasActuales);
@@ -147,9 +145,6 @@ public class ControladorEstado {
 	}
 	public int getSalud() {
 		return salud;
-	}
-	public int getEstudios() {
-		return estudios;
 	}
 	public int getDia() {
 		return dia;

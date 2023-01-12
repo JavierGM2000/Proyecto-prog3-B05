@@ -9,8 +9,6 @@ public class Buff {
 	private double nerfDinero;
 	private double buffFelicidad;
 	private double nerfFelicidad;
-	private double buffEstudio;
-	private double nerfEstudio;
 	private int modDias;
 
 	//Logger
@@ -24,13 +22,11 @@ public class Buff {
 		nerfDinero = 0.0;
 		buffFelicidad = 0.0;
 		nerfFelicidad = 0.0;
-		buffEstudio = 0.0;
-		nerfEstudio = 0.0;
 		modDias = 0;
 		loggerBuff.info("Creado Buff sin parametros");
 	}
 	//Constructor con parametros
-	public Buff(double buffProgreso, double nerfProgreso, double buffDinero, double nerfDinero, double buffFelicidad, double nerfFelicidad, double buffEstudio, double nerfEstudio, int modDias) {
+	public Buff(double buffProgreso, double nerfProgreso, double buffDinero, double nerfDinero, double buffFelicidad, double nerfFelicidad, int modDias) {
 		if (buffProgreso < -1) {
 			this.buffProgreso = -1;
 		}else {
@@ -65,18 +61,6 @@ public class Buff {
 			this.nerfFelicidad = -1;
 		}else {
 			this.nerfFelicidad = nerfFelicidad;
-		}
-		
-		if (buffEstudio < -1) {
-			this.buffEstudio = -1;
-		}else {
-			this.buffEstudio = buffEstudio;
-		}
-		
-		if (nerfEstudio < -1) {
-			this.nerfEstudio = -1;
-		}else {
-			this.nerfEstudio = nerfEstudio;
 		}
 
 		this.modDias = modDias;
@@ -173,35 +157,7 @@ public class Buff {
 		nerfFelicidad += cambio;
 	}
 
-	/*
-	 * Función para cambiar el valor del buff si queremos penalizar lo que gana el
-	 * valor puede ser negativo
-	 */
-	public void addBuffEstudio(double cambio) {
-		loggerBuff.info("Añadido BuffEstudio: " + cambio);
-		// El valor del buff nunca puede ser negativo, si la operación daría menor que
-		// -1, lo ponemos a -1
-		if (buffEstudio + cambio < -1) {
-			buffEstudio = -1;
-			return;
-		}
-		buffEstudio += cambio;
-	}
 
-	/*
-	 * Función para cambiar el valor del nerf si queremos reducir lo que pierde el
-	 * valor puede ser negativo
-	 */
-	public void addNerfEstudio(double cambio) {
-		loggerBuff.info("Añadido NerfEstudio: " + cambio);
-		// El valor del nerf nunca puede ser negativo, si la operación daría menor que
-		// -1, lo ponemos a -1
-		if (nerfEstudio + cambio < -1) {
-			nerfEstudio = -1;
-			return;
-		}
-		nerfEstudio += cambio;
-	}
 	//Funcion para modificar el modificador de días
 	public void modifDias(int cambio) {
 		loggerBuff.info("Dias modificados: " + cambio);
@@ -224,11 +180,6 @@ public class Buff {
 		loggerBuff.info("Añadido BuffDineroimetrico: " + cambio);
 		addBuffFelicidad(cambio);
 		addNerfFelicidad(cambio * -1);
-	}
-	public void addBuffEstudioSimetrico(double cambio) {
-		loggerBuff.info("Añadido BuffEstudioSimetrico: " + cambio);
-		addBuffEstudio(cambio);
-		addNerfEstudio(cambio * -1);
 	}
 
 	// getters
@@ -262,16 +213,6 @@ public class Buff {
 		return nerfFelicidad;
 	}
 
-	public double getBuffEstudio() {
-		loggerBuff.info("Devuelto BuffEstudio: " + buffEstudio);
-		return buffEstudio;
-	}
-
-	public double getNerfEstudio() {
-		loggerBuff.info("Devuelto NerfEstudio: " + nerfEstudio);
-		return nerfEstudio;
-	}
-
 	public int getModDias() {
 		loggerBuff.info("Devuelto ModDias: " + modDias);
 		return modDias;
@@ -285,6 +226,31 @@ public class Buff {
 		}
 	}
 	
+	public String toStringGuardado() {
+		String resultado = "";
+		if(this.isNotNull(buffDinero)) {
+			resultado = resultado + "Bufo dinero-" + getBuffDinero() + "-";
+		}
+		if(this.isNotNull(nerfDinero)) {
+			resultado = resultado + "Nerf dinero-" +getNerfDinero() + "-";
+		}
+		if(this.isNotNull(buffFelicidad)) {
+			resultado = resultado + "Bufo felicidad-" +getBuffFelicidad() + "-";
+		}
+		if(this.isNotNull(nerfFelicidad)) {
+			resultado = resultado + "Nerf felicidad-" +getNerfFelicidad() + "-";
+		}
+		if(this.isNotNull(buffProgreso)) {
+			resultado = resultado + "Bufo progreso-" +getBuffProgreso() + "-";
+		}
+		if(this.isNotNull(nerfProgreso)) {
+			resultado = resultado + "Nerf progreso-" +getNerfProgreso() + "-";
+		}
+		if(this.isNotNull(modDias)) {
+			resultado = resultado + "Modificacion de dias-" +getModDias() + "-";
+		}
+		return resultado;
+	}
 	public String toString() {
 		String resultado = "";
 		if(this.isNotNull(buffDinero)) {
@@ -292,12 +258,6 @@ public class Buff {
 		}
 		if(this.isNotNull(nerfDinero)) {
 			resultado = resultado + "Nerf dinero: " +getNerfDinero() + "\n";
-		}
-		if(this.isNotNull(buffEstudio)) {
-			resultado = resultado + "Bufo estudio: " +getBuffEstudio() + "\n";
-		}
-		if(this.isNotNull(nerfEstudio)) {
-			resultado = resultado + "Nerf estudio: " +getNerfEstudio() + "\n";
 		}
 		if(this.isNotNull(buffFelicidad)) {
 			resultado = resultado + "Bufo felicidad: " +getBuffFelicidad() + "\n";
