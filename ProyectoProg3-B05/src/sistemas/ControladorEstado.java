@@ -69,21 +69,65 @@ public class ControladorEstado {
 		}
 		
 	}
+	
+	public void verificarSalud() {
+		if (salud <0){
+			finDelJuegoMalo();
+		}
+	}
+	
+	public Boolean verificarDinero(Carta carta) {
+		if (this.dinero+carta.getDinero()>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public void verificarProgreso() {
+		if (progreso >= 100) {
+			finDelJuegoBueno();
+		}
+	}
 
 	public void aplicarCarta(Carta cartaA) {
-		this.buffos[cartaA.getBufo().getModDias()] = cartaA.getBufo();
-		if (this.buffos[dia]!= null){
-			System.out.println("no nulo");
-			this.salud = (int) (this.salud+cartaA.getSalud()*this.buffos[dia].getBuffFelicidad());
-			this.dinero = (int) (this.dinero+cartaA.getDinero()*this.buffos[dia].getBuffDinero());
-			this.progreso = (int) (this.progreso+cartaA.getProgreso()*this.buffos[dia].getBuffProgreso());
-		}else {
-			this.salud = this.salud+cartaA.getSalud();
-			this.dinero = this.dinero+cartaA.getDinero();
-			this.progreso = this.progreso+cartaA.getProgreso();
-		}
-		
-		this.horasActuales = this.horasActuales-cartaA.getHoras();
+		if (verificarDinero(cartaA)) {
+			verificarSalud();
+			verificarProgreso();
+			this.buffos[cartaA.getBufo().getModDias()] = cartaA.getBufo();
+			if (this.buffos[dia]!= null){
+				if (this.salud<=100 && this.salud>=0) {
+					this.salud = (int) (this.salud+cartaA.getSalud()*this.buffos[dia].getBuffFelicidad());
+					if (this.salud<0){this.salud=0;System.out.println("salud -0");}
+					if (this.salud>100){this.salud=100; System.out.println("salud +100");}
+				}
+				if (this.dinero<=500 && this.dinero>=0) {
+					this.dinero = (int) (this.dinero+cartaA.getDinero()*this.buffos[dia].getBuffDinero());
+					if (this.dinero<0){this.dinero=0;}
+					if (this.dinero>500){this.dinero=500;}
+				}
+				if (this.progreso<=100 && this.progreso>=0) {
+					this.progreso = (int) (this.progreso+cartaA.getProgreso()*this.buffos[dia].getBuffProgreso());
+				}
+			}else {
+				if (this.salud<=100 && this.salud>=0) {
+					this.salud = this.salud+cartaA.getSalud();
+					if (this.salud<0){this.salud=0;System.out.println("salud -0");}
+					if (this.salud>100){this.salud=100; System.out.println("salud +100");}
+				}
+				if (this.dinero<=500 && this.dinero>=0) {
+					this.dinero = this.dinero+cartaA.getDinero();
+					if (this.dinero<0){this.dinero=0;}
+					if (this.dinero>500){this.dinero=500;}
+				}
+				if (this.progreso<=100 && this.progreso>=0) {
+					this.progreso = this.progreso+cartaA.getProgreso();
+				}
+				
+			}
+			
+			this.horasActuales = this.horasActuales-cartaA.getHoras();
+		}	
 	}
 	
 	public void finDelJuegoBueno() {

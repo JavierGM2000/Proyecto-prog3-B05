@@ -197,6 +197,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 				if(estadoJuego.getHorasActuales()>=panelDescripcion.getCarta().getHoras()) {
 				estadoJuego.aplicarCarta(panelDescripcion.getCarta());
 				pbSalud.setValue(estadoJuego.getSalud());
+				System.out.println(estadoJuego.getSalud());
 				pbSalud.setString(estadoJuego.getSalud() + "/" + pbSalud.getMaximum() + "(PS)");
 				pbSalud.repaint();
 				
@@ -232,12 +233,15 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				estadoJuego.verificarDia();
+				estadoJuego.verificarSalud();
+				estadoJuego.verificarProgreso();
 					//Obtener 3 cartas aleatorias de la base de datos
 					cargarCartas(barajaCartas);
 					//Actualizamos los paneles que muestran las cartas
 					pnCarta1.actualizarCarta(carta1);
 					pnCarta2.actualizarCarta(carta2);
 					pnCarta3.actualizarCarta(carta3);
+					panelDescripcion.actualizarCarta(carta1);
 					pBottom.removeAll();
 					JLabel lDiasPasadosActualizado = new JLabel("Día: " + estadoJuego.getDia() + "/30");
 					pBottom.add(lDiasPasadosActualizado);
