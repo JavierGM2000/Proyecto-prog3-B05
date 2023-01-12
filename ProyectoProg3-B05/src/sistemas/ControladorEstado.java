@@ -40,7 +40,6 @@ public class ControladorEstado {
 			progreso=0;
 			dinero=100;
 			salud=50;
-			estudios=0;
 			dia=0;//El contador de dias empezará en 0 para ir a la par con el array de buffos
 			horasInicial=12;//Valor base de horas que hay en un día sin buffos
 			horasActuales=12;
