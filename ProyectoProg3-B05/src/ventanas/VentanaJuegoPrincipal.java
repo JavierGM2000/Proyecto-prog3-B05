@@ -73,8 +73,25 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		JPanel pTopDerecha = new JPanel();
 		pTop.add(pTopDerecha, BorderLayout.EAST);
 		
-		JButton bMenu = new JButton("Menu"); // Icono de menu mucho mas adecuado
-		pTopDerecha.add(bMenu);
+		JButton bGuardar = new JButton("Guardar y salir"); // Icono de menu mucho mas adecuado
+		pTopDerecha.add(bGuardar);
+		
+		bGuardar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String[] opciones = {"Salir sin guardar", "Guardar y salir"};
+				int opcion = JOptionPane.showOptionDialog(null, "Que quieres hacer?", "Guardar y Salir", 0, JOptionPane.PLAIN_MESSAGE, null, opciones, "Guardar y salir");
+				if(opcion == 0) {
+					estadoJuego.getGestorV().cambiarVentana(2);
+					setVisible(false);
+				} else {
+					estadoJuego.GuardarPartida();
+					estadoJuego.getGestorV().cambiarVentana(2);
+					setVisible(false);
+				}
+			}
+		});
 		
 		// Zona de los Progress Bars 
 		
@@ -260,9 +277,5 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		carta1 = barjaCar.extraerCarta();
 		carta2 = barjaCar.extraerCarta();
 		carta3 = barjaCar.extraerCarta();
-	}
-	public static void main(String[] args) {
-		ControladorEstado estado = new ControladorEstado();
-		new VentanaJuegoPrincipal(estado);
 	}
 }
