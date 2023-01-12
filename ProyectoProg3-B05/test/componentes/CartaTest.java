@@ -17,10 +17,10 @@ public class CartaTest {
 	@Before
 	public void setUp() {
 		b1 = new Buff(0.5, 0.8, 0.7, 0.7, 0.3, 0.8, 3);
-		carta = new Carta(1, TipoCarta.ESTUDIO, b, -15, 0, 30, "descripcion");
-		carta2 = new Carta(1, TipoCarta.ESTUDIO, b, -15,0,30,"descripcion");
-		carta3 = new Carta(1, TipoCarta.OCIO, b, 35,-20,0,"descripcion");
-		carta4 = new Carta(1, TipoCarta.ESTUDIO, b1, -10,0,20,"descripcion");
+		carta = new Carta(1, TipoCarta.ESTUDIO, b, -15, 0, 30, 3,"descripcion");
+		carta2 = new Carta(1, TipoCarta.ESTUDIO, b, -15,0,30, 3,"descripcion");
+		carta3 = new Carta(1, TipoCarta.OCIO, b, 35,-20,0, 2,"descripcion");
+		carta4 = new Carta(1, TipoCarta.ESTUDIO, b1, -10,0,20, 5,"descripcion");
 	}
 	
 	@Test
@@ -64,6 +64,14 @@ public class CartaTest {
 		assertEquals(carta.getDescripcion(), "descripcion");
 	}
 	@Test
+	public void testgetHoras() {
+		assertEquals(carta.getHoras(), 3);
+	}
+	@Test
+	public void testgetHoras2() {
+		assertEquals(carta3.getHoras(), 2);
+	}
+	@Test
 	public void testEqualsIguales() {
 		assertTrue(carta.equals(carta2));
 	}
@@ -74,5 +82,9 @@ public class CartaTest {
 	@Test
 	public void testEqualsDIferenteC2() {
 		assertFalse(carta.equals(carta4));
+	}
+	@Test
+	public void testToString() {
+		assertEquals(carta4.toString(), "1#ESTUDIO#" + b1.toStringGuardado() + "#-10#0#20#5#descripcion");
 	}
 }

@@ -70,7 +70,7 @@ public class Carta {
 	public boolean equals(Carta otraCarta) {
 		loggerCarta.info("Comparamos las cartas: " + otraCarta.getId() + " - " + this.id);
 		if (otraCarta.getBufo()==bufo && otraCarta.getTipo()==tipo && otraCarta.getSalud()==salud &&
-			otraCarta.getDinero()==dinero && otraCarta.getProgreso()==progreso) {
+			otraCarta.getDinero()==dinero && otraCarta.getProgreso()==progreso && otraCarta.getHoras()==horas) {
 			return true;
 		}else {
 			return false;
@@ -78,6 +78,6 @@ public class Carta {
 	}
 	
 	public String toString() {
-		return id+"#"+tipo+"#"+bufo.toStringGuardado()+"#"+salud+"#"+dinero+"#"+progreso+"#"+descripcion;
+		return id+"#"+tipo+"#"+bufo.toStringGuardado()+"#"+salud+"#"+dinero+"#"+progreso+"#"+horas+"#"+descripcion;
 	}
 }
