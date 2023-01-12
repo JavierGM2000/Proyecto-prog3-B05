@@ -47,7 +47,10 @@ public class PanelCarta extends JPanel{
 	
 	public void actualizarCarta(Carta cartaActualizada) {
 		this.carta = cartaActualizada;
-		this.bufos.setText(carta.getBufo().toString());
+		this.bufos.setText(	"Salud: " + carta.getSalud()+"\n"+
+							"Dinero: " + carta.getDinero()+"\n"+
+							"Progreso: " + carta.getProgreso()+"\n"+
+							carta.getBufo().toString());
 		System.out.println(carta.getBufo().toString());
 		switch (carta.getTipo()) {
 		case OCIO: {

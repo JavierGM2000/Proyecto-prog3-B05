@@ -30,7 +30,10 @@ public class PanelDatosCarta extends PanelCarta{
 	@Override
 	public void actualizarCarta(Carta cartaActualizada) {
 		this.carta = cartaActualizada;
-		this.bufos.setText(carta.getBufo().toString());
+		this.bufos.setText(	"Salud: " + carta.getSalud()+"\n"+
+							"Dinero: " + carta.getDinero()+"\n"+
+							"Progreso: " + carta.getProgreso()+"\n"+
+							carta.getBufo().toString());
 		this.descripcion.setText(carta.getDescripcion());
 		switch (carta.getTipo()) {
 		case OCIO: {

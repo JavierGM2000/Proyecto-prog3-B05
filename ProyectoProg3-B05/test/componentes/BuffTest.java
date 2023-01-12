@@ -14,9 +14,9 @@ public class BuffTest {
 	@Before
 	public void setUp() throws Exception {
 		b = new Buff();
-		b1 = new Buff(0.5, 0.8, 0.7, 0.7, 0.3, 0.8, 0.2, 0.4, 3);
-		b2 = new Buff(-1.3, -1.8, -1.7, -2.7, -1.3, -1.8, -1.2, -1.4, 3);
-		b3 = new Buff(0.0, 0.0, 0.7, 0.7, 0.3, 0.8, 0.2, 0.4, 3);
+		b1 = new Buff(0.5, 0.8, 0.7, 0.7, 0.3, 0.8, 3);
+		b2 = new Buff(-1.3, -1.8, -1.7, -2.7, -1.3, -1.8, 3);
+		b3 = new Buff(0.0, 0.0, 0.7, 0.7, 0.3, 0.8, 3);
 	}
 	//Teses del constructor con parametros
 	@Test
@@ -66,22 +66,6 @@ public class BuffTest {
 	@Test
 	public void testConstructorNerfFelicidadNegativo() {
 		assertEquals(-1.0, b2.getNerfFelicidad(), 0);
-	}
-	@Test
-	public void testConstructorBuffEstudio() {
-		assertEquals(0.2, b1.getBuffEstudio(), 0);
-	}
-	@Test
-	public void testConstructorBuffEstudioNegativo() {
-		assertEquals(-1.0, b2.getNerfEstudio(), 0);
-	}
-	@Test
-	public void testConstructorNerfEstudio() {
-		assertEquals(0.4, b1.getNerfEstudio(), 0);
-	}
-	@Test
-	public void testConstructorNerfEstudioNegativo() {
-		assertEquals(-1.0, b2.getNerfEstudio(), 0);
 	}
 	@Test
 	public void testConstructorModDias() {
@@ -180,36 +164,6 @@ public class BuffTest {
 		assertEquals(-1,b.getNerfFelicidad(),0);
 	}
 	@Test
-	public void testAddbuffEstudio() {
-		b.addBuffEstudio(0.2);
-		assertEquals(0.2,b.getBuffEstudio(), 0);
-	}
-	@Test
-	public void testAddbuffEstudioNegativo() {
-		b.addBuffEstudio(-0.2);
-		assertEquals(-0.2,b.getBuffEstudio(),0);
-	}
-	@Test
-	public void testAddbuffEstudioNegativoMax() {
-		b.addBuffEstudio(-2);
-		assertEquals(-1,b.getBuffEstudio(),0);
-	}
-	@Test
-	public void testAddNerfEstudio() {
-		b.addNerfEstudio(0.2);
-		assertEquals(0.2,b.getNerfEstudio(), 0);
-	}
-	@Test
-	public void testAddNerfEstudioNegativo() {
-		b.addNerfEstudio(-0.2);
-		assertEquals(-0.2,b.getNerfEstudio(),0);
-	}
-	@Test
-	public void testAddNerfEstudioNegativoMax() {
-		b.addNerfEstudio(-2);
-		assertEquals(-1,b.getNerfEstudio(),0);
-	}
-	@Test
 	public void testAddBuffProgresoSim() {
 		b.addBuffProgresoSimetrico(0.2);
 		assertEquals(0.2,b.getBuffProgreso(),0);
@@ -264,24 +218,6 @@ public class BuffTest {
 		assertEquals(2,b.getNerfFelicidad(),0);
 	}
 	@Test
-	public void testAddBuffEstudioSim() {
-		b.addBuffEstudioSimetrico(0.2);
-		assertEquals(0.2,b.getBuffEstudio(),0);
-		assertEquals(-0.2,b.getNerfEstudio(),0);
-	}
-	@Test
-	public void testAddBuffEstudioSimMinNer() {
-		b.addBuffEstudioSimetrico(2);
-		assertEquals(2,b.getBuffEstudio(),0);
-		assertEquals(-1,b.getNerfEstudio(),0);
-	}
-	@Test
-	public void testAddBuffEstudioSimMinBuf() {
-		b.addBuffEstudioSimetrico(-2);
-		assertEquals(-1,b.getBuffEstudio(),0);
-		assertEquals(2,b.getNerfEstudio(),0);
-	}
-	@Test
 	public void testModDias() {
 		b.modifDias(2);
 		assertEquals(2,b.getModDias());
@@ -306,8 +242,6 @@ public class BuffTest {
 	public void testToString() {
 		assertEquals("Bufo dinero: 0.7\n"
 				+ "Nerf dinero: 0.7\n"
-				+ "Bufo estudio: 0.2\n"
-				+ "Nerf estudio: 0.4\n"
 				+ "Bufo felicidad: 0.3\n"
 				+ "Nerf felicidad: 0.8\n"
 				+ "Bufo progreso: 0.5\n"
@@ -315,8 +249,6 @@ public class BuffTest {
 				+ "Modificacion de dias: 3\n", b1.toString());
 		assertEquals("Bufo dinero: 0.7\n"
 				+ "Nerf dinero: 0.7\n"
-				+ "Bufo estudio: 0.2\n"
-				+ "Nerf estudio: 0.4\n"
 				+ "Bufo felicidad: 0.3\n"
 				+ "Nerf felicidad: 0.8\n"
 				+ "Modificacion de dias: 3\n", b3.toString());
