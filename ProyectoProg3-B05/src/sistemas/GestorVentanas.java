@@ -10,6 +10,7 @@ import ventanas.VentanaBase;
 import ventanas.VentanaCrearCuenta;
 import ventanas.VentanaLogin;
 import ventanas.VentanaPartidaSelec;
+import ventanas.VentanaJuegoPrincipal;
 
 public class GestorVentanas {
 
@@ -29,6 +30,7 @@ public class GestorVentanas {
 		ventanas[0] = new VentanaLogin(GBBDD, this);
 		ventanas[1] = new VentanaCrearCuenta(GBBDD, this);
 		ventanas[2] = new VentanaPartidaSelec(GBBDD, this);
+		ventanas[3] = null;
 		ventanas[0].setVisible(true);
 	}
 
@@ -38,6 +40,20 @@ public class GestorVentanas {
 		actual = idVentana;
 		ventanas[idVentana].prepararInit();
 		ventanas[idVentana].setVisible(true);
+	}
+	
+	public void empezarNuevaPartida() {
+		loggeGV.info(String.format("Empezando nueva partida para el usuario %d", Usu.getId()));
+		ventanas[actual].setVisible(false);
+		int idPartida = GBBDD.CrearPartidaParaUsuario(Usu.getId());
+		ControladorEstado CE = new ControladorEstado(idPartida);
+		ventanas[3] = new VentanaJuegoPrincipal(CE);
+	}
+	
+	public void salirDePartida() {
+		ventanas[2].setVisible(true);
+		ventanas[3].dispose();
+		ventanas[3] = null;
 	}
 
 	public void setUsu(int usId, String usNom) {
