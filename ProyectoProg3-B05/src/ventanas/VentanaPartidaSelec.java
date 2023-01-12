@@ -58,7 +58,7 @@ public class VentanaPartidaSelec extends VentanaBase {
 		bNuevaPartida.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				Padre.empezarNuevaPartida();
 			}
 		});	
 		
