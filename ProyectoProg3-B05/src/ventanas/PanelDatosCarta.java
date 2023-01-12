@@ -33,6 +33,7 @@ public class PanelDatosCarta extends PanelCarta{
 		this.bufos.setText(	"Salud: " + carta.getSalud()+"\n"+
 							"Dinero: " + carta.getDinero()+"\n"+
 							"Progreso: " + carta.getProgreso()+"\n"+
+							"Horas: " + carta.getHoras()+"\n"+
 							carta.getBufo().toString());
 		this.descripcion.setText(carta.getDescripcion());
 		switch (carta.getTipo()) {

@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -22,6 +23,7 @@ public class PanelCarta extends JPanel{
 	JButton boton = new JButton("Informacion");
 	JLabel imagen = new JLabel();
 	JTextArea bufos = new JTextArea();
+	JScrollPane scrollDatos = new JScrollPane(bufos);
 	JLabel titulo = new JLabel();
 	JTextArea descripcion = new JTextArea();
 	JPanel pTitulo = new JPanel();
@@ -38,7 +40,7 @@ public class PanelCarta extends JPanel{
 		
 		pTitulo.add(titulo);
 		pCentroIz.add(imagen);
-		pCentroIz.add(bufos);
+		pCentroIz.add(scrollDatos);
 		pCentro.add(pCentroIz, BorderLayout.WEST);
 		this.add(pTitulo,BorderLayout.NORTH);
 		this.add(pCentro,BorderLayout.CENTER);
@@ -50,8 +52,7 @@ public class PanelCarta extends JPanel{
 		this.bufos.setText(	"Salud: " + carta.getSalud()+"\n"+
 							"Dinero: " + carta.getDinero()+"\n"+
 							"Progreso: " + carta.getProgreso()+"\n"+
-							carta.getBufo().toString());
-		System.out.println(carta.getBufo().toString());
+							"Horas: " + carta.getHoras()+"\n");
 		switch (carta.getTipo()) {
 		case OCIO: {
 			Image img = new ImageIcon( getClass().getResource("/Ocio.png")).getImage();

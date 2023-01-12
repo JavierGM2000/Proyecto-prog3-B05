@@ -10,19 +10,21 @@ public class Carta {
 	private int salud;
 	private int dinero;
 	private int progreso;
+	private int horas;
 	private String descripcion;
 	
 	//Logger
 		private static Logger loggerCarta = Logger.getLogger(Carta.class.getName());
 		
 	//Constructor con todos los parametros
-	public Carta(int id, TipoCarta tipo, Buff bufo, int salud, int dinero, int progreso, String descripcion) {
+	public Carta(int id, TipoCarta tipo, Buff bufo, int salud, int dinero, int progreso, int horas, String descripcion) {
 		this.id = id;
 		this.tipo = tipo;
 		this.bufo = bufo;
 		this.salud = salud;
 		this.dinero = dinero;
 		this.progreso = progreso;
+		this.horas = horas;
 		this.descripcion = descripcion;
 		loggerCarta.info("Carta creada con: " + id + " - " + tipo + " - " + descripcion);
 	}
@@ -59,6 +61,10 @@ public class Carta {
 	public int getProgreso() {
 		return this.progreso;
 	}
+	
+	public int getHoras() {
+		return this.horas;
+	}
 	//Equals que compara dos cartas
 	//Compara el tipo de carta y los buffos 
 	public boolean equals(Carta otraCarta) {
@@ -72,6 +78,6 @@ public class Carta {
 	}
 	
 	public String toString() {
-		return id+"#"+tipo+"#"+bufo.toString()+"#"+salud+"#"+dinero+"#"+progreso+"#"+descripcion;
+		return id+"#"+tipo+"#"+bufo.toStringGuardado()+"#"+salud+"#"+dinero+"#"+progreso+"#"+descripcion;
 	}
 }
