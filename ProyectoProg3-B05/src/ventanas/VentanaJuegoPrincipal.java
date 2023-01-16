@@ -81,12 +81,9 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String[] opciones = {"Salir sin guardar", "Guardar y salir"};
-				int opcion = JOptionPane.showOptionDialog(null, "Que quieres hacer?", "Guardar y Salir", 0, JOptionPane.PLAIN_MESSAGE, null, opciones, "Guardar y salir");
+				String[] opciones = {"Guardar y salir"};
+				int opcion = JOptionPane.showOptionDialog(null, "Seguro que quieres guardar y salir?", "Guardar y Salir", 0, JOptionPane.PLAIN_MESSAGE, null, opciones, "Guardar y salir");
 				if(opcion == 0) {
-					estadoJuego.getGestorV().cambiarVentana(2);
-					setVisible(false);
-				} else {
 					estadoJuego.GuardarPartida();
 					estadoJuego.getGestorV().cambiarVentana(2);
 					setVisible(false);
