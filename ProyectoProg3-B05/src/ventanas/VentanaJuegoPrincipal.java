@@ -59,7 +59,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		
 		cargarCartas(barajaCartas, 0);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(960, 540);
+		setSize(1080, 540);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setTitle("Titulo del juego"); // Hay que cambiarlo cuando se sepa el titulo final
@@ -99,6 +99,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		JPanel pBarras = new JPanel(new FlowLayout());
 		pTop.add(pBarras, BorderLayout.CENTER);
 		
+		JLabel lSalud = new JLabel("Salud: ");
 		JProgressBar pbSalud = new JProgressBar(0, 100);
 		pbSalud.setValue(estadoJuego.getSalud());
 		pbSalud.setBackground(Color.GRAY);
@@ -107,8 +108,10 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		pbSalud.setStringPainted(true);
 		pbSalud.getString();
 		pbSalud.repaint();
+		pBarras.add(lSalud);
 		pBarras.add(pbSalud);
 		
+		JLabel lDinero = new JLabel("Dinero: ");
 		JProgressBar pbDinero = new JProgressBar(0, 500);
 		pbDinero.setValue(estadoJuego.getDinero());
 		pbDinero.setBackground(Color.GRAY);
@@ -117,8 +120,10 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		pbDinero.setStringPainted(true);
 		pbDinero.getString();
 		pbDinero.repaint();
+		pBarras.add(lDinero);
 		pBarras.add(pbDinero);
 		
+		JLabel lProyecto = new JLabel("Proyecto: ");
 		JProgressBar pbProyecto = new JProgressBar(0, 100);
 		pbProyecto.setValue(estadoJuego.getProgreso());
 		pbProyecto.setBackground(Color.GRAY);
@@ -127,8 +132,10 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		pbProyecto.setStringPainted(true);
 		pbProyecto.getString();
 		pbProyecto.repaint();
+		pBarras.add(lProyecto);
 		pBarras.add(pbProyecto);
 		
+		JLabel lHoras = new JLabel("Horas: ");
 		JProgressBar pbHoras = new JProgressBar(0, 12);
 		pbHoras.setValue(estadoJuego.getHorasActuales());
 		pbHoras.setBackground(Color.GRAY);
@@ -137,6 +144,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		pbHoras.setStringPainted(true);
 		pbHoras.getString();
 		pbHoras.repaint();
+		pBarras.add(lHoras);
 		pBarras.add(pbHoras);
 		
 		// --- Parte de la derecha de la Ventana (Descripcion de las cartas)
@@ -227,7 +235,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 					cargarCartas(barajaCartas, 3);
 					pnCarta3.actualizarCarta(carta3);
 				}
-				
+				estadoJuego.GuardarPartida();
 			}
 		});
 		pBarraBotones.add(bSeleccionar);

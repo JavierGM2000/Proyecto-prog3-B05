@@ -1,5 +1,6 @@
 package sistemas;
 
+import java.io.Serializable;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
@@ -12,8 +13,9 @@ import ventanas.VentanaLogin;
 import ventanas.VentanaPartidaSelec;
 import ventanas.VentanaJuegoPrincipal;
 
-public class GestorVentanas {
+public class GestorVentanas implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	GestorBBDD GBBDD;
 	Usuario Usu;
 	int actual;
@@ -48,6 +50,7 @@ public class GestorVentanas {
 		int idPartida = GBBDD.CrearPartidaParaUsuario(Usu.getId());
 		ControladorEstado CE = new ControladorEstado(idPartida, gestorV);
 		ventanas[3] = new VentanaJuegoPrincipal(CE);
+		CE.GuardarPartida();
 	}
 	
 	public void cargarPartida(GestorVentanas gestorV,int partId) {
