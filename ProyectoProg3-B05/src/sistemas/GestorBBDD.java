@@ -1,6 +1,9 @@
 package sistemas;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import at.favre.lib.crypto.bcrypt.*;
@@ -34,9 +37,16 @@ public class GestorBBDD {
 			// contacte con los usuarios autorizados
 			// del repositorio
 			////////////////////////////////////////////
-			Conn = DriverManager.getConnection("jdbc:mysql://qahf589.emaginarte.info/qahf589?useSSL=false", "qahf589",
-					"DeustoSim22");// Contraseña entre las comillas
+			Properties properties = new Properties();
+			try{
+				properties.load(new FileInputStream("proyecto.properties"));
+			
+			Conn = DriverManager.getConnection(properties.getProperty("enlace_base_de_datos"), properties.getProperty("nombre_de_la_base_de_datos"),
+					properties.getProperty("contrasenya_base_de_datos"));// Contraseña entre las comillas
 			loggerBBDD.fine("Conexion con la Base de Datos exitosa");
+			}catch (IOException e) {
+				e.printStackTrace();
+			}
 		} catch (SQLException e) {
 			loggerBBDD.info("Conexion online fallida, intentando conexion local");
 			this.Conn = GetConFromPath("data/bbdd/Basedatos");
