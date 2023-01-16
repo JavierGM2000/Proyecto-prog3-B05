@@ -50,6 +50,14 @@ public class GestorVentanas {
 		ventanas[3] = new VentanaJuegoPrincipal(CE);
 	}
 	
+	public void cargarPartida(GestorVentanas gestorV,int partId) {
+		loggeGV.info(String.format("Cargando partida para el usuario %d", Usu.getId()));
+		ventanas[actual].setVisible(false);
+		ControladorEstado CE = GBBDD.ConseguirPartidaParaUsuario(partId);
+		ventanas[3] = new VentanaJuegoPrincipal(CE);
+	}
+	
+	
 	public void salirDePartida() {
 		ventanas[2].setVisible(true);
 		ventanas[3].dispose();

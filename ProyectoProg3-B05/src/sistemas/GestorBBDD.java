@@ -5,12 +5,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
 import at.favre.lib.crypto.bcrypt.*;
 import componentes.Carta;
+import componentes.Partida;
 
 public class GestorBBDD {
 	private Connection Conn;
@@ -183,6 +186,25 @@ public class GestorBBDD {
 			loggerBBDD.severe("Error al borrar un usuario en la Base de Datos");
 		}
 		return -1;
+	}
+	
+	public List<Partida> ConseguirPartidasUsuarios(int usId){
+		List<Partida> lPartids = new ArrayList<>();
+		try (PreparedStatement pstmt = Conn.prepareStatement("SELECT `id`,`last_used`,`info` FROM `partida` WHERE `user_id`=? ORDER BY `last_used` DESC")) {
+			pstmt.setInt(1, usId);
+
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				lPartids.add(new Partida(rs.getInt(1), rs.getString(2) ,rs.getString(3)));
+			}
+			
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			loggerBBDD.severe("Error al borrar un usuario en la Base de Datos");
+		}
+		return lPartids;
 	}
 
 	// Devuelve el id de la partida que se ha creado
