@@ -155,6 +155,7 @@ public class ControladorEstado {
 		
 		if(opcion == 0) { // Ir al menu
 			gestorV.cambiarVentana(2);
+			gestorV.getVentana(3).setVisible(false);
 		}
 	}
 	
@@ -176,6 +177,7 @@ public class ControladorEstado {
 		
 		if(opcion == 0) { // Ir al menu
 			gestorV.cambiarVentana(2);
+			gestorV.getVentana(3).setVisible(false);
 		}
 	}
 	
@@ -189,6 +191,7 @@ public class ControladorEstado {
 		
 		if(opcion == 0) { // Ir al menu
 			gestorV.cambiarVentana(2);
+			gestorV.getVentana(3).setVisible(false);
 		}
 	}
 

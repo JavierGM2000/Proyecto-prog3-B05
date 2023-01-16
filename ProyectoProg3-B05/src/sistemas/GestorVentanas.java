@@ -73,4 +73,8 @@ public class GestorVentanas {
 	public int getUsuID() {
 		return Usu.getId();
 	}
+	
+	public JFrame getVentana(int index) {
+		return ventanas[index];
+	}
 }
