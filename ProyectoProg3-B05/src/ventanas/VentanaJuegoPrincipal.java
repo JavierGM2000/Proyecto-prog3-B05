@@ -35,6 +35,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 	
 	GestorBBDD GBBDD;
 	GestorVentanas Padre;
+	int numCarta = 0;
 	//Datos de prueba
 	//v
 	List<Carta> lista = new ArrayList<Carta>();
@@ -56,7 +57,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		//TODO
 		Baraja barajaCartas = new Baraja(lista);
 		
-		cargarCartas(barajaCartas);
+		cargarCartas(barajaCartas, 0);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(960, 540);
 		setResizable(false);
@@ -216,6 +217,17 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 				}
 				estadoJuego.verificarSalud();
 				estadoJuego.verificarProgreso();
+				if(panelDescripcion.getCarta().equals(carta1)) {
+					cargarCartas(barajaCartas, 1);
+					pnCarta1.actualizarCarta(carta1);
+				}else if(panelDescripcion.getCarta().equals(carta2)) {
+					cargarCartas(barajaCartas, 2);
+					pnCarta2.actualizarCarta(carta2);
+				}else if (panelDescripcion.getCarta().equals(carta3)) {
+					cargarCartas(barajaCartas, 3);
+					pnCarta3.actualizarCarta(carta3);
+				}
+				
 			}
 		});
 		pBarraBotones.add(bSeleccionar);
@@ -237,7 +249,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 				estadoJuego.verificarSalud();
 				estadoJuego.verificarProgreso();
 					//Obtener 3 cartas aleatorias de la base de datos
-					cargarCartas(barajaCartas);
+					cargarCartas(barajaCartas, 0);
 					//Actualizamos los paneles que muestran las cartas
 					pnCarta1.actualizarCarta(carta1);
 					pnCarta2.actualizarCarta(carta2);
@@ -264,7 +276,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 			pbHoras.setString(estadoJuego.getHorasActuales() + " /" + estadoJuego.getHorasIniciales() + "h");
 			pbHoras.repaint();
 			//Obtener 3 cartas aleatorias de la base de datos
-			cargarCartas(barajaCartas);
+			cargarCartas(barajaCartas, 0);
 			//Actualizamos los paneles que muestran las cartas
 			pnCarta1.actualizarCarta(carta1);
 			pnCarta2.actualizarCarta(carta2);
@@ -278,9 +290,31 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		setVisible(true);
 	}
 	
-	public void cargarCartas(Baraja barjaCar) {
-		carta1 = barjaCar.extraerCarta();
-		carta2 = barjaCar.extraerCarta();
-		carta3 = barjaCar.extraerCarta();
+	public void cargarCartas(Baraja barjaCar, int i) {
+		switch (i) {
+		case 0: {
+			carta1 = barjaCar.extraerCarta();
+			carta2 = barjaCar.extraerCarta();
+			carta3 = barjaCar.extraerCarta();
+			break;
+		}
+		case 1: {
+			carta1 = barjaCar.extraerCarta();
+			break;
+		}
+		case 2: {
+			carta2 = barjaCar.extraerCarta();
+			break;
+		}
+		case 3: {
+			carta3 = barjaCar.extraerCarta();
+			break;
+		}
+		default:
+			carta1 = barjaCar.extraerCarta();
+			carta2 = barjaCar.extraerCarta();
+			carta3 = barjaCar.extraerCarta();
+			break;
+		}
 	}
 }
