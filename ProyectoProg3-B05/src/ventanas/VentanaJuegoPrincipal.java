@@ -197,7 +197,6 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 				if(estadoJuego.getHorasActuales()>=panelDescripcion.getCarta().getHoras()) {
 				estadoJuego.aplicarCarta(panelDescripcion.getCarta());
 				pbSalud.setValue(estadoJuego.getSalud());
-				System.out.println(estadoJuego.getSalud());
 				pbSalud.setString(estadoJuego.getSalud() + "/" + pbSalud.getMaximum() + "(PS)");
 				pbSalud.repaint();
 				
@@ -215,6 +214,8 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 				} else {
 					JOptionPane.showInternalMessageDialog(null, "No tienes suficientes horas \nPasa al siguiente dia");
 				}
+				estadoJuego.verificarSalud();
+				estadoJuego.verificarProgreso();
 			}
 		});
 		pBarraBotones.add(bSeleccionar);
