@@ -80,7 +80,7 @@ public class VentanaPartidaSelec extends VentanaBase {
 			public void actionPerformed(ActionEvent e) {
 				int rowselect = jTablePartidas.getSelectedRow();
 				if(rowselect>-1) {
-					int partId = Integer.parseInt((String) jTablePartidas.getValueAt(rowselect, 0));
+					int partId = (int) jTablePartidas.getValueAt(rowselect, 0);
 					Padre.cargarPartida(Padre, partId);
 				}
 				

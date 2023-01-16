@@ -22,7 +22,7 @@ public class ControladorEstado implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	// Gestor Ventana
-	private GestorVentanas gestorV;
+	private transient GestorVentanas gestorV;
 	//Atributos basicos
 	private int partidaid;
 	private int progreso;
@@ -206,17 +206,19 @@ public class ControladorEstado implements Serializable {
 	}
 
 	public boolean GuardarPartida() {
-		String OutEstado;
+		String OutEstado = null;
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try(ObjectOutputStream oos = new ObjectOutputStream( baos )) {
 			oos.writeObject( this );
 			oos.close();
 			OutEstado = Base64.getEncoder().encodeToString(baos.toByteArray());
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return false;
+        gestorV.subirPartida(OutEstado,partidaid);
+        return true;
 	}
 	
 	// Geters de la clase
@@ -248,6 +250,9 @@ public class ControladorEstado implements Serializable {
 		this.dia = dia;
 	}
 	
+	public void setGestorVentana(GestorVentanas GV) {
+		gestorV = GV;
+	}
 	
 	public GestorVentanas getGestorV() {
 			return gestorV;

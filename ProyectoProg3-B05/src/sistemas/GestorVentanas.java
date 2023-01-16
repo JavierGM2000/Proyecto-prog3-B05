@@ -53,10 +53,16 @@ public class GestorVentanas implements Serializable{
 		CE.GuardarPartida();
 	}
 	
+	public void subirPartida(String info,int partId) {
+		GBBDD.ActualizarPartidaUsuario(info, partId);
+	}
+	
+	
 	public void cargarPartida(GestorVentanas gestorV,int partId) {
 		loggeGV.info(String.format("Cargando partida para el usuario %d", Usu.getId()));
 		ventanas[actual].setVisible(false);
 		ControladorEstado CE = GBBDD.ConseguirPartidaParaUsuario(partId);
+		CE.setGestorVentana(this);
 		ventanas[3] = new VentanaJuegoPrincipal(CE);
 	}
 	
