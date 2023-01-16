@@ -3,6 +3,7 @@ package componentes;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Baraja {
 
  private List<Carta> baraja;
  private Deque<Carta> jugable;
- private Deque<Carta> descartes;
+ private List<Carta> descartes;
  
  	public Baraja(List<Carta> iBaraja) {
  		baraja= iBaraja;
@@ -44,7 +45,6 @@ public class Baraja {
  			Barajar();
  		}
  		Carta extraida = jugable.pop();
- 		descartes.add(extraida);
  		return extraida;
  	}
  	
@@ -53,19 +53,21 @@ public class Baraja {
  		Random rand = new Random();
  		jugable.clear();
  		descartes.clear();
+ 		descartes = new ArrayList<>(baraja);
  		Deque<Carta> nuevBaraja = new LinkedList<>();
- 		BarajarRecursivo(jugable,rand,baraja.size());
+ 		BarajarRecursivo(jugable,rand,descartes.size());
  		while(nuevBaraja.size()>0) {
  			baraja.add(nuevBaraja.pop());
  		}
  	}
  	public void BarajarRecursivo(Deque<Carta> barajeado,Random rand, int n){
- 		if(n==1) {
- 			barajeado.push(baraja.get(0));
- 			baraja.remove(0);
+ 		if(n<=1) {
+ 			barajeado.push(descartes.get(0));
+ 			descartes.remove(0);
  		} else {
  			int catInt = rand.ints(0, --n).findFirst().getAsInt();
- 			barajeado.push(baraja.get(catInt));
+ 			barajeado.push(descartes.get(catInt));
+ 			descartes.remove(catInt);
  			BarajarRecursivo(barajeado,rand,n);
  		}
  	}

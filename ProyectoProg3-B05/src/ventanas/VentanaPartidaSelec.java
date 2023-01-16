@@ -84,7 +84,6 @@ public class VentanaPartidaSelec extends VentanaBase {
 					Padre.cargarPartida(Padre, partId);
 				}
 				
-				Padre.empezarNuevaPartida(inPadre);
 			}
 		});	
 		
