@@ -1,5 +1,11 @@
 package sistemas;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.Base64;
+
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -9,8 +15,12 @@ import componentes.Buff;
 import componentes.Carta;
 import ventanas.VentanaJuegoPrincipal;
 
-public class ControladorEstado {
+public class ControladorEstado implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// Gestor Ventana
 	private GestorVentanas gestorV;
 	//Atributos basicos
@@ -196,13 +206,16 @@ public class ControladorEstado {
 	}
 
 	public boolean GuardarPartida() {
-		JSONObject obj = new JSONObject();
-		obj.put("progreso", this.progreso);
-		obj.put("salud", this.salud);
-		obj.put("dia", this.dia);
-		obj.put("horasInicial", this.horasInicial);
-		obj.put("horasActuales", this.horasActuales);
-		obj.put("buffos", this.buffos);
+		String OutEstado;
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try(ObjectOutputStream oos = new ObjectOutputStream( baos )) {
+			oos.writeObject( this );
+			oos.close();
+			OutEstado = Base64.getEncoder().encodeToString(baos.toByteArray());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return false;
 	}
 	

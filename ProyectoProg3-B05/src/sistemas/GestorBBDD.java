@@ -1,8 +1,11 @@
 package sistemas;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.sql.*;
+import java.util.Base64;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -38,13 +41,14 @@ public class GestorBBDD {
 			// del repositorio
 			////////////////////////////////////////////
 			Properties properties = new Properties();
-			try{
+			try {
 				properties.load(new FileInputStream("proyecto.properties"));
-			
-			Conn = DriverManager.getConnection(properties.getProperty("enlace_base_de_datos"), properties.getProperty("nombre_de_la_base_de_datos"),
-					properties.getProperty("contrasenya_base_de_datos"));// Contraseña entre las comillas
-			loggerBBDD.fine("Conexion con la Base de Datos exitosa");
-			}catch (IOException e) {
+
+				Conn = DriverManager.getConnection(properties.getProperty("enlace_base_de_datos"),
+						properties.getProperty("nombre_de_la_base_de_datos"),
+						properties.getProperty("contrasenya_base_de_datos"));// Contraseña entre las comillas
+				loggerBBDD.fine("Conexion con la Base de Datos exitosa");
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} catch (SQLException e) {
@@ -114,12 +118,12 @@ public class GestorBBDD {
 	// Devuelve -1 para cualquier otro error al insertar
 	public int crearUsuario(String Usuario, String Mail, char[] Contrasena) {
 
-		if(existeCorreo(Mail)) {
+		if (existeCorreo(Mail)) {
 			return 0;
 		}
-		
-		try (PreparedStatement pstmt = Conn
-				.prepareStatement("INSERT INTO `usuarios`(`nombre`, `mail`, `contra`) VALUES (?,?,?)",Statement.RETURN_GENERATED_KEYS)) {
+
+		try (PreparedStatement pstmt = Conn.prepareStatement(
+				"INSERT INTO `usuarios`(`nombre`, `mail`, `contra`) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
 			pstmt.setString(1, Usuario);
 			pstmt.setString(2, Mail);
 			String HashContra = BCrypt.withDefaults().hashToString(12, Contrasena);
@@ -160,18 +164,19 @@ public class GestorBBDD {
 
 		return false;
 	}
-	
-	// Devuelve el número de partidas que tiene un usuario, si hay un error devuelve -1
+
+	// Devuelve el número de partidas que tiene un usuario, si hay un error devuelve
+	// -1
 	public int EncontrarPartidasUsuario(int UsId) {
 		try (PreparedStatement pstmt = Conn.prepareStatement("SELECT COUNT(*) FROM `partida` WHERE `user_id`=?")) {
 			pstmt.setInt(1, UsId);
-			
+
 			ResultSet rs = pstmt.executeQuery();
-				
-				rs.next();
-				int cuentas = rs.getInt(1);
-				loggerBBDD.fine("Usuario -" + UsId + "- tiene el siguiente numero de cuentas: "+cuentas);
-				return cuentas;
+
+			rs.next();
+			int cuentas = rs.getInt(1);
+			loggerBBDD.fine("Usuario -" + UsId + "- tiene el siguiente numero de cuentas: " + cuentas);
+			return cuentas;
 
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -179,10 +184,12 @@ public class GestorBBDD {
 		}
 		return -1;
 	}
-	//Devuelve el id de la partida que se ha creado
-	public int CrearPartidaParaUsuario(int UsId){
-		try (PreparedStatement pstmt = Conn
-				.prepareStatement("INSERT INTO `partida`(`user_id`, `last_used`, `info`) VALUES (?,NOW(),'')",Statement.RETURN_GENERATED_KEYS)) {
+
+	// Devuelve el id de la partida que se ha creado
+	public int CrearPartidaParaUsuario(int UsId) {
+		try (PreparedStatement pstmt = Conn.prepareStatement(
+				"INSERT INTO `partida`(`user_id`, `last_used`, `info`) VALUES (?,NOW(),'')",
+				Statement.RETURN_GENERATED_KEYS)) {
 			pstmt.setInt(1, UsId);
 			pstmt.executeUpdate();
 			try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
@@ -201,18 +208,52 @@ public class GestorBBDD {
 		}
 		return -1;
 	}
-	
-	public boolean ActualizarPartidaUsuario(String info,int partidaId) {
-		try (PreparedStatement pstmt = Conn.prepareStatement("UPDATE `partida` SET `last_used`=NOW(),`info`=? WHERE `id`=?")) {
+
+	public ControladorEstado ConseguirPartidaParaUsuario(int partidaId) {
+		String info = "";
+		try (PreparedStatement pstmt = Conn.prepareStatement("SELECT `info` FROM `partida` WHERE `id`=?")) {
+			pstmt.setInt(1, partidaId);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.isBeforeFirst()) {
+				rs.next();
+				info = rs.getString(1);
+			} else {
+				return null;
+			}
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			loggerBBDD.severe("Error al insertar un nuevo usuario en la Base de Datos");
+		}
+		byte[] data = Base64.getDecoder().decode(info);
+		
+		Object o = null;
+		try(ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data))) {
+			o = ois.readObject();
+			ois.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return (ControladorEstado) o;
+	}
+
+	public boolean ActualizarPartidaUsuario(String info, int partidaId) {
+		try (PreparedStatement pstmt = Conn
+				.prepareStatement("UPDATE `partida` SET `last_used`=NOW(),`info`=? WHERE `id`=?")) {
 			pstmt.setString(1, info);
 			pstmt.setInt(2, partidaId);
-			
-			if(pstmt.executeUpdate()>0) {
+
+			if (pstmt.executeUpdate() > 0) {
 				loggerBBDD.fine("Partida " + partidaId + " actualizada");
 				return true;
 			}
 			return false;
-			
+
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 			loggerBBDD.severe("Error al borrar un usuario en la Base de Datos");

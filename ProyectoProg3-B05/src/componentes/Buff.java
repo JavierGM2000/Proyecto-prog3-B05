@@ -1,8 +1,14 @@
 package componentes;
 
+import java.io.Serializable;
 import java.util.logging.Logger;
 
-public class Buff {
+public class Buff implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private double buffProgreso;
 	private double nerfProgreso;
 	private double buffDinero;
