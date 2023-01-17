@@ -226,18 +226,21 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 					if(estadoJuego.getHorasActuales()>= carta1.getHoras()) {
 					cargarCartas(barajaCartas, 1);
 					pnCarta1.actualizarCarta(carta1);
+					panelDescripcion.actualizarCarta(carta1);
 					}
 					
 				}else if(panelDescripcion.getCarta().equals(carta2)) {
 					if(estadoJuego.getHorasActuales()>= carta2.getHoras()) {
 					cargarCartas(barajaCartas, 2);
 					pnCarta2.actualizarCarta(carta2);
+					panelDescripcion.actualizarCarta(carta2);
 					}
 					
 				}else if (panelDescripcion.getCarta().equals(carta3)) {
 					if(estadoJuego.getHorasActuales()>= carta3.getHoras()) {
 					cargarCartas(barajaCartas, 3);
 					pnCarta3.actualizarCarta(carta3);
+					panelDescripcion.actualizarCarta(carta3);
 					}
 					
 				}
