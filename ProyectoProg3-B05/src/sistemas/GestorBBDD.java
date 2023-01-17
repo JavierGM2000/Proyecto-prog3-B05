@@ -19,6 +19,7 @@ import componentes.Partida;
 public class GestorBBDD implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	private int islittle;
 
 	private Connection Conn;
 
@@ -26,6 +27,7 @@ public class GestorBBDD implements Serializable{
 	private static Logger loggerBBDD = Logger.getLogger(Carta.class.getName());
 
 	public GestorBBDD() {
+		islittle=0;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			loggerBBDD.fine("Driver de mysql cargado correctamente");
@@ -60,12 +62,13 @@ public class GestorBBDD implements Serializable{
 			}
 		} catch (SQLException e) {
 			loggerBBDD.info("Conexion online fallida, intentando conexion local");
-			this.Conn = GetConFromPath("data/bbdd/Basedatos");
+			this.Conn = GetConFromPath("data/bbdd/BaseDatos");
 			// e.printStackTrace();
 		}
 	}
 
 	public Connection GetConFromPath(String path) {
+		islittle =1;
 		Connection Conec;
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -119,6 +122,9 @@ public class GestorBBDD implements Serializable{
 		return 0;
 	}
 
+	public int getIsLittle() {
+		return islittle;
+	}
 	// Función para crear un usuario
 	// Devuelve 1 si el usuario se ha creado correctamente
 	// Devuelve 0 si el correo electronico está en uso
@@ -213,8 +219,14 @@ public class GestorBBDD implements Serializable{
 
 	// Devuelve el id de la partida que se ha creado
 	public int CrearPartidaParaUsuario(int UsId) {
+		String statement = "";
+		if(islittle==1) {
+			statement = "INSERT INTO `partida`(`user_id`, `last_used`, `info`) VALUES (?,date('now'),'')";
+		} else {
+			statement = "INSERT INTO `partida`(`user_id`, `last_used`, `info`) VALUES (?,NOW(),'')";
+		}
 		try (PreparedStatement pstmt = Conn.prepareStatement(
-				"INSERT INTO `partida`(`user_id`, `last_used`, `info`) VALUES (?,NOW(),'')",
+				statement,
 				Statement.RETURN_GENERATED_KEYS)) {
 			pstmt.setInt(1, UsId);
 			pstmt.executeUpdate();
@@ -269,8 +281,14 @@ public class GestorBBDD implements Serializable{
 	}
 
 	public boolean ActualizarPartidaUsuario(String info, int partidaId) {
+		String statement = "";
+		if(islittle==1) {
+			statement = "UPDATE `partida` SET `last_used`=date('now'),`info`=? WHERE `id`=?";
+		} else {
+			statement = "UPDATE `partida` SET `last_used`=NOW(),`info`=? WHERE `id`=?";
+		}
 		try (PreparedStatement pstmt = Conn
-				.prepareStatement("UPDATE `partida` SET `last_used`=NOW(),`info`=? WHERE `id`=?")) {
+				.prepareStatement(statement)) {
 			pstmt.setString(1, info);
 			pstmt.setInt(2, partidaId);
 
