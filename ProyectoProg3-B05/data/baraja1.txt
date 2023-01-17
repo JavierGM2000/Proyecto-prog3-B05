@@ -1,0 +1,9 @@
+0#OCIO#Bufo dinero-1.0-Nerf dinero-1.0-Bufo felicidad-1.0-Nerf felicidad-1.0-Bufo progreso-1.0-Nerf progreso-1.0-#10#-15#0#2#Ya es hora de desconectar un poco NO?
+0#ESTUDIO#Bufo dinero-1.0-Nerf dinero-1.0-Bufo felicidad-1.0-Nerf felicidad-1.0-Bufo progreso-1.0-Nerf progreso-1.0-#-20#5#25#2#Has decidido ponerte a estudiar
+0#TRABAJO#Bufo dinero-1.0-Nerf dinero-1.0-Bufo felicidad-1.0-Nerf felicidad-1.0-Bufo progreso-1.0-Nerf progreso-1.0-#-15#50#5#4#Te toca ir a trabajar
+0#OCIO#Bufo dinero-1.0-Nerf dinero-1.0-Bufo felicidad-1.0-Nerf felicidad-1.0-Bufo progreso-1.0-Nerf progreso-1.0-#10#-15#0#2#Ya es hora de desconectar un poco NO?
+0#ESTUDIO#Bufo dinero-1.0-Nerf dinero-1.0-Bufo felicidad-1.0-Nerf felicidad-1.0-Bufo progreso-1.0-Nerf progreso-1.0-#-20#5#25#2#Has decidido ponerte a estudiar
+0#TRABAJO#Bufo dinero-1.0-Nerf dinero-1.0-Bufo felicidad-1.0-Nerf felicidad-1.0-Bufo progreso-1.0-Nerf progreso-1.0-#-15#50#5#4#Te toca ir a trabajar
+0#OCIO#Bufo dinero-1.0-Nerf dinero-1.0-Bufo felicidad-1.0-Nerf felicidad-1.0-Bufo progreso-1.0-Nerf progreso-1.0-#10#-15#0#2#Ya es hora de desconectar un poco NO?
+0#ESTUDIO#Bufo dinero-1.0-Nerf dinero-1.0-Bufo felicidad-1.0-Nerf felicidad-1.0-Bufo progreso-1.0-Nerf progreso-1.0-#-20#5#25#2#Has decidido ponerte a estudiar
+0#TRABAJO#Bufo dinero-1.0-Nerf dinero-1.0-Bufo felicidad-1.0-Nerf felicidad-1.0-Bufo progreso-1.0-Nerf progreso-1.0-#-15#50#5#4#Te toca ir a trabajar

@@ -55,7 +55,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		
 		//Crear la baraja de cartas
 		//TODO
-		Baraja barajaCartas = new Baraja(lista);
+		Baraja barajaCartas = new Baraja();
 		
 		cargarCartas(barajaCartas, 0);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
