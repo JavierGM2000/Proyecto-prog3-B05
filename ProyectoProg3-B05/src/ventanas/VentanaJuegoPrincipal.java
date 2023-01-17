@@ -2,22 +2,17 @@ package ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
 
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.JToolBar.Separator;
 
 import componentes.Baraja;
 import componentes.Buff;
@@ -29,6 +24,7 @@ import sistemas.GestorVentanas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 public class VentanaJuegoPrincipal extends VentanaBase{
@@ -44,8 +40,17 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 	Carta carta2 = new Carta(00,TipoCarta.ESTUDIO, new Buff(),-20,5,25,2,"Has decidido ponerte a \nestudiar");
 	Carta carta3 = new Carta(00,TipoCarta.TRABAJO, new Buff(),-15,50,5,4,"Te toca ir a trabajar");
 	//^
+	private static Logger logger = Logger.getLogger(Carta.class.getName());
 	
 	public VentanaJuegoPrincipal(ControladorEstado estadoJuego) {
+		//Creacion y configuracion del Logger
+		
+		try (FileInputStream fis = new FileInputStream("logger.properties")) {
+			LogManager.getLogManager().readConfiguration(fis);
+		} catch (Exception ex) {
+			logger.warning(String.format("%s - Error leyendo configuración del Logger: %s", 
+										this.getClass(), ex.getMessage()));
+		}
 		//Datos de prueba
 		//v
 		lista.add(carta1);
@@ -54,15 +59,13 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		//^
 		
 		//Crear la baraja de cartas
-		//TODO
-		Baraja barajaCartas = new Baraja(lista);
-		
+		Baraja barajaCartas = new Baraja();
 		cargarCartas(barajaCartas, 0);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1080, 540);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setTitle("Titulo del juego"); // Hay que cambiarlo cuando se sepa el titulo final
+		setTitle("Prog 3: El videojuego"); // Hay que cambiarlo cuando se sepa el titulo final
 		setLayout(new BorderLayout());
 		// ---- Parte de arriba de la Ventana (Zona del menu + Progress bars)
 		
@@ -81,6 +84,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logger.info("Boton Guardar pulsado");
 				String[] opciones = {"Guardar y salir"};
 				int opcion = JOptionPane.showOptionDialog(null, "Seguro que quieres guardar y salir?", "Guardar y Salir", 0, JOptionPane.PLAIN_MESSAGE, null, opciones, "Guardar y salir");
 				if(opcion == 0) {
@@ -163,6 +167,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logger.info("Boton Informacion del panel 1 pulsado");
 				panelDescripcion.actualizarCarta(carta1);
 			}
 		});
@@ -172,6 +177,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logger.info("Boton Informacion del panel 2 pulsado");
 				panelDescripcion.actualizarCarta(carta2);
 			}
 		});
@@ -181,6 +187,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logger.info("Boton Informacion del panel 3 pulsado");
 				panelDescripcion.actualizarCarta(carta3);
 			}
 		});
@@ -200,6 +207,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logger.info("Boton Seleccionar pulsado");
 				if(estadoJuego.getHorasActuales()>=panelDescripcion.getCarta().getHoras()) {
 				estadoJuego.aplicarCarta(panelDescripcion.getCarta());
 				pbSalud.setValue(estadoJuego.getSalud());
@@ -223,14 +231,26 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 				estadoJuego.verificarSalud();
 				estadoJuego.verificarProgreso();
 				if(panelDescripcion.getCarta().equals(carta1)) {
+					if(estadoJuego.getHorasActuales()>= carta1.getHoras()) {
 					cargarCartas(barajaCartas, 1);
 					pnCarta1.actualizarCarta(carta1);
+					panelDescripcion.actualizarCarta(carta1);
+					}
+					
 				}else if(panelDescripcion.getCarta().equals(carta2)) {
+					if(estadoJuego.getHorasActuales()>= carta2.getHoras()) {
 					cargarCartas(barajaCartas, 2);
 					pnCarta2.actualizarCarta(carta2);
+					panelDescripcion.actualizarCarta(carta2);
+					}
+					
 				}else if (panelDescripcion.getCarta().equals(carta3)) {
+					if(estadoJuego.getHorasActuales()>= carta3.getHoras()) {
 					cargarCartas(barajaCartas, 3);
 					pnCarta3.actualizarCarta(carta3);
+					panelDescripcion.actualizarCarta(carta3);
+					}
+					
 				}
 				estadoJuego.GuardarPartida();
 			}
@@ -250,6 +270,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logger.info("Boton Siguiente Dia pulsado");
 				estadoJuego.verificarDia();
 				estadoJuego.verificarSalud();
 				estadoJuego.verificarProgreso();
@@ -274,6 +295,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			logger.info("Boton Rell-Roll pulsado");
 			//Restamos 3 horas a las horas posibles del dia
 			if(estadoJuego.getHorasActuales()>=3) {
 			estadoJuego.setHorasActuales(estadoJuego.getHorasActuales() - 3);
@@ -301,24 +323,29 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 			carta1 = barjaCar.extraerCarta();
 			carta2 = barjaCar.extraerCarta();
 			carta3 = barjaCar.extraerCarta();
+			logger.fine(String.format("Cartas: %s - %s - %s cargadas", carta1.getId(), carta2.getId(),carta3.getId()));
 			break;
 		}
 		case 1: {
 			carta1 = barjaCar.extraerCarta();
+			logger.fine(String.format("Carta: %s cargada", carta1.getId()));
 			break;
 		}
 		case 2: {
 			carta2 = barjaCar.extraerCarta();
+			logger.fine(String.format("Carta: %s cargada", carta1.getId()));
 			break;
 		}
 		case 3: {
 			carta3 = barjaCar.extraerCarta();
+			logger.fine(String.format("Carta: %s cargada", carta1.getId()));
 			break;
 		}
 		default:
 			carta1 = barjaCar.extraerCarta();
 			carta2 = barjaCar.extraerCarta();
 			carta3 = barjaCar.extraerCarta();
+			logger.fine(String.format("Cartas: %s - %s - %s cargadas", carta1.getId(), carta2.getId(),carta3.getId()));
 			break;
 		}
 	}

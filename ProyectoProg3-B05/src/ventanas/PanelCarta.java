@@ -37,7 +37,8 @@ public class PanelCarta extends JPanel{
 		pCentro.setLayout(new BorderLayout());
 		pCentroIz.setLayout(new GridLayout(2, 1));
 		this.actualizarCarta(carta);
-		
+		descripcion.setEditable(false);
+		bufos.setEditable(false);
 		pTitulo.add(titulo);
 		pCentroIz.add(imagen);
 		pCentroIz.add(scrollDatos);

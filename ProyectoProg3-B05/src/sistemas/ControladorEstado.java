@@ -178,7 +178,7 @@ public class ControladorEstado implements Serializable {
 		} else if(getSalud() >= 40) {
 			frase += " Y te has esforzado";
 		} else {
-			frase += " Y Desgraciadamente, ni te has acercado";
+			frase += " Y tienes la salud por los suelos";
 		}
 		
 		int opcion = JOptionPane.showOptionDialog(null, frase, "Final del juego", 0, JOptionPane.PLAIN_MESSAGE, null, opciones, "Ir al Menu");
