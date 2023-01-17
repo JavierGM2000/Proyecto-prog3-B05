@@ -65,7 +65,7 @@ public class VentanaJuegoPrincipal extends VentanaBase{
 		setSize(1080, 540);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setTitle("Titulo del juego"); // Hay que cambiarlo cuando se sepa el titulo final
+		setTitle("Prog 3: El videojuego"); // Hay que cambiarlo cuando se sepa el titulo final
 		setLayout(new BorderLayout());
 		// ---- Parte de arriba de la Ventana (Zona del menu + Progress bars)
 		
