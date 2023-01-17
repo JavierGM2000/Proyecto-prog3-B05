@@ -9,8 +9,6 @@ import java.util.Base64;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
-import org.json.simple.JSONObject;
-
 import componentes.Buff;
 import componentes.Carta;
 import ventanas.VentanaJuegoPrincipal;

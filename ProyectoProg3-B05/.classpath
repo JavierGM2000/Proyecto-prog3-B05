@@ -13,6 +13,5 @@
 	<classpathentry kind="lib" path="lib/bcrypt-0.9.0-optimized.jar"/>
 	<classpathentry kind="lib" path="lib/bytes-1.5.0-optimized.jar"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.39.3.0.jar"/>
-	<classpathentry kind="lib" path="lib/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
